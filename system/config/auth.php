@@ -36,10 +36,11 @@ return [
     */
 
     'guards' => [
-        'web' => [
+        'tambah' => [
             'driver' => 'session',
-            'provider' => 'users',
+            'provider' => 'tambah',
         ],
+        
     ],
 
     /*
@@ -60,10 +61,11 @@ return [
     */
 
     'providers' => [
-        'users' => [
+        'tambah' => [
             'driver' => 'eloquent',
-            'model' => env('AUTH_MODEL', App\Models\User::class),
+            'model' => App\Models\Tambah::class,
         ],
+        
 
         // 'users' => [
         //     'driver' => 'database',

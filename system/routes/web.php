@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\LoginController;
 use App\Http\Controllers\user\BerandaController;
 use App\Http\Controllers\user\CutiController;
 use Illuminate\Support\Facades\Route;
@@ -22,6 +23,11 @@ Route::prefix('admin')->group(function () {
 
 // Route login
 Route::prefix('login')->controller(AuthController::class)->group(function () {
-    Route::get('/', 'index');
+    Route::get('/', 'login');
+    Route::post('masuk', 'masuk');
+});
+
+Route::prefix('logout')->controller(AuthController::class)->group(function () {
+    Route::post('/', 'logout');
 });
  

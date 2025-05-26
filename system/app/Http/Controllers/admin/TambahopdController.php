@@ -4,6 +4,7 @@ namespace App\Http\Controllers\admin;
 use App\Http\Controllers\Controller;
 use App\Models\Tambah;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class TambahopdController extends Controller
 {
@@ -17,14 +18,15 @@ class TambahopdController extends Controller
     }
 
     public function submit(Request $request){
-        $tambah = new Tambah(); // sebaiknya ubah nama $tambah jadi $tambah untuk konsistensi
+        $tambah = new Tambah();
         $tambah->nama_opd = $request->nama_opd;
         $tambah->email = $request->email;
-        $tambah->password = $request->password;
-
-        $tambah->save(); // tambahkan ini untuk menyimpan ke database
-
+        $tambah->password = Hash::make($request->password); // hash password dulu
+    
+        $tambah->save();
+    
         return redirect('admin/tambah-opd')->with('success','Dikirim');
     }
+    
 
 }

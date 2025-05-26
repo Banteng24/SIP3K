@@ -1,4 +1,11 @@
 <x-admin>
+    @if (session('success'))
+    <div class="alert alert-success alert-dismissible fade show mt-3" role="alert">
+        {{ session('success') }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+@endif
+
     <div class="row">
         <div class="col-12 col-lg-9 mx-auto">
             <div class="text-center">

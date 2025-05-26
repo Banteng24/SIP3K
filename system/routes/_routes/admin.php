@@ -7,6 +7,7 @@ use App\Http\Controllers\admin\MutasiController;
 use App\Http\Controllers\admin\PajakController;
 use App\Http\Controllers\admin\PensiunController;
 use App\Http\Controllers\admin\TambahopdController;
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\user\TambahController;
 use Illuminate\Support\Facades\Route;
 
@@ -24,7 +25,7 @@ Route::prefix('create')->controller(CreateConroller::class)->group(function () {
     Route::get('/', 'index');
 
 });
-Route::prefix('tambah-opd')->controller(TambahopdController::class)->group(function () {
+Route::prefix('tambah-opd')->controller(AuthController::class)->group(function () {
     Route::get('/', 'index');
     Route::get('create', 'create');
     Route::post('submit', 'submit');
