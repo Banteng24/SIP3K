@@ -20,9 +20,8 @@ Route::prefix('admin')->group(function () {
 //     Route::post('create', 'store');
 // });
 
-// // Route login
-// Route::prefix('login')->controller(AuthController::class)->group(function () {
-//     Route::get('/', 'masuk');
-//     Route::post('create', 'loginsubmit');
-// });
+// Route login
+Route::prefix('login')->controller(AuthController::class)->group(function () {
+    Route::get('/', 'index');
+});
  

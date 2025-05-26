@@ -23,7 +23,7 @@
               </tr>
             </thead>
             <tbody>
-                @foreach ($data as $no => $data)
+                {{-- @foreach ($data as $no => $data)
                 <tr>
                     <td>{{ $no + 1 }}</td>
                     <td>{{ $data->nama_pegawai }}</td>
@@ -49,7 +49,7 @@
                         @endif
                     </td>
                 </tr>
-                @endforeach
+                @endforeach --}}
             </tbody>
           </table>
         </div>

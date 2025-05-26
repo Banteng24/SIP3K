@@ -52,7 +52,7 @@
                 <div class="menu-title">Pajak SPT</div>
              </a>
               <ul class="dropdown-menu">
-                <li> <a class="dropdown-item" href="app-emailbox.html"><i class="bx bx-right-arrow-alt"></i>lapor Pajak</a>
+                <li> <a class="dropdown-item" href="{{url('admin/pajak  ')}}"><i class="bx bx-right-arrow-alt"></i>lapor Pajak</a>
                 </li>
               </ul>
             </li>
@@ -74,7 +74,7 @@
                 <div class="menu-title">Akun Baru</div>
               </a>
               <ul class="dropdown-menu">
-                <li> <a class="dropdown-item" href="widgets.html"><i class="bx bx-right-arrow-alt"></i>Widgets</a>
+                <li> <a class="dropdown-item" href="{{url('admin/akun-baru')}}"><i class="bx bx-right-arrow-alt"></i>Widgets</a>
                 </li>
               </ul>
             </li>

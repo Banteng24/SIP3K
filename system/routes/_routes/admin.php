@@ -1,8 +1,10 @@
 <?php
 
+use App\Http\Controllers\admin\AkunbaruController;
 use App\Http\Controllers\admin\CreateConroller;
 use App\Http\Controllers\admin\HomeController;
 use App\Http\Controllers\admin\MutasiController;
+use App\Http\Controllers\admin\PajakController;
 use App\Http\Controllers\admin\PensiunController;
 use App\Http\Controllers\admin\TambahopdController;
 use App\Http\Controllers\user\TambahController;
@@ -30,6 +32,14 @@ Route::prefix('tambah-opd')->controller(TambahopdController::class)->group(funct
 });
 
 Route::prefix('pensiun')->controller(PensiunController::class)->group(function () {
+    Route::get('/', 'index');
+
+});
+Route::prefix('pajak')->controller(PajakController::class)->group(function () {
+    Route::get('/', 'index');
+
+});
+Route::prefix('akun-baru')->controller(AkunbaruController::class)->group(function () {
     Route::get('/', 'index');
 
 });

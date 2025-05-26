@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth as FacadesAuth;
 use Illuminate\Support\Facades\Auth;
 
-class AuthController extends Controller
+class LoginController extends Controller
 {
     function index(){
         
