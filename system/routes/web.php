@@ -6,27 +6,23 @@ use App\Http\Controllers\user\BerandaController;
 use App\Http\Controllers\user\CutiController;
 use Illuminate\Support\Facades\Route;
 
-// Route untuk Super Admin
-Route::prefix('user')->group(function () {
+/// Route untuk User, wajib login dulu
+Route::prefix('user')->middleware('auth')->group(function () {
     include "_routes/user.php";
 });
 
-// Route untuk Admin BKPSDM
+// Route untuk Admin (bebas dulu)
 Route::prefix('admin')->group(function () {
     include "_routes/admin.php";
 });
 
-// Route::prefix('daftar')->controller(AuthController::class)->group(function () {
-//     Route::get('/', 'index');
-//     Route::post('create', 'store');
-// });
-
-// Route login
+// Route login (bebas akses) - kasih nama route 'login' supaya middleware bisa redirect
 Route::prefix('login')->controller(AuthController::class)->group(function () {
-    Route::get('/', 'login');
+    Route::get('/', 'login')->name('login');
     Route::post('masuk', 'masuk');
 });
 
+// Route logout
 Route::prefix('logout')->controller(AuthController::class)->group(function () {
     Route::post('/', 'logout');
 });

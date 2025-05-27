@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Tambah;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -11,8 +11,8 @@ class AuthController extends Controller
 {
     // Menampilkan daftar OPD
     public function index() {
-        $tambah = Tambah::get();
-        return view('admin.tambah-opd.index', compact('tambah'));
+        $users = User::all(); // lebih baik pakai $users
+        return view('admin.tambah-opd.index', compact('users'));
     }
 
     // Form tambah OPD
@@ -24,15 +24,15 @@ class AuthController extends Controller
     public function submit(Request $request) {
         $request->validate([
             'nama_opd' => 'required|string|max:255',
-            'email' => 'required|email|unique:tambahs,email',
-            'password' => 'required|string|min:6',
+            'email' => 'required|email|unique:users,email',
+            'password' => 'required|string|min:6|confirmed', // pakai password confirmation
         ]);
 
-        $tambah = new Tambah();
-        $tambah->nama_opd = $request->nama_opd;
-        $tambah->email = $request->email;
-        $tambah->password = Hash::make($request->password);
-        $tambah->save();
+        $user = new User();
+        $user->nama_opd = $request->nama_opd; // pastikan kolom ini ada di tabel users
+        $user->email = $request->email;
+        $user->password = Hash::make($request->password);
+        $user->save();
 
         return redirect('admin/tambah-opd')->with('success', 'Data OPD berhasil ditambahkan.');
     }
@@ -42,29 +42,26 @@ class AuthController extends Controller
         return view('admin.login');
     }
 
-    // Proses login admin (model Tambah)
+    // Proses login admin (gunakan guard default 'web' jika tidak ada guard khusus)
     public function masuk(Request $request) {
-        $request->validate([
-            'email' => 'required|email',
-            'password' => 'required|string',
+        $credentials = $request->validate([
+            'email' => ['required', 'email'],
+            'password' => ['required'],
         ]);
-    
-        $credentials = $request->only('email', 'password');
-    
-        if (Auth::guard('tambah')->attempt($credentials)) {
+
+        if (Auth::attempt($credentials)) { // gunakan Auth::attempt() pakai guard default
             $request->session()->regenerate();
-            return redirect('user/')->with('success', 'Login berhasil!');
+            return redirect()->intended('user/')->with('success', 'Login berhasil!');
         }
-    
+
         return back()->withErrors([
             'email' => 'Email atau password salah.',
         ])->withInput();
     }
-    
 
     // Logout
     public function logout(Request $request) {
-        Auth::guard('tambah')->logout();
+        Auth::logout(); // logout dari guard default 'web'
         $request->session()->invalidate();
         $request->session()->regenerateToken();
         return redirect('/login');

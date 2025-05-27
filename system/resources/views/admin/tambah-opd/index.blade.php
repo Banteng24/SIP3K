@@ -23,9 +23,9 @@
                         @foreach ($tambah as $no => $master)
                             <tr>
                                 <td>{{ $no + 1 }}</td>
-                                <td>{{ $master->nama_opd }}</td>
-                                <td>{{ $master->email }}</td>
-                                <td>{{ $master->password }}</td>
+                                <td>{{ $master->nama_opd}}</td>
+                                <td>{{ $master->email}}</td>
+                                <td>{{ $master->password}}</td>
                             </tr>
                         @endforeach
                     </tbody>
