@@ -2,7 +2,7 @@
     <div class="card">
       <div class="card-body">
         <div class="d-flex justify-content-between align-items-center mb-3">
-          <h4 class="mb-0">Cuti Pegawai</h4>
+          <h4 class="mb-0">Pajak Pegawai</h4>
           <a class="btn btn-success btn-sm" href="{{ url('user/cuti/create') }}">
             <i class="fas fa-user-plus"></i> Tambah Cuti
           </a>

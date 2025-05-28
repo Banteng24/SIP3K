@@ -11,5 +11,7 @@ class PajakController extends Controller
         return view('admin.pajak.index', compact('data')); // ✅ fixed
     }
 
+    
+
 }
 

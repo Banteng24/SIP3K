@@ -38,6 +38,11 @@ class AuthController extends Controller
 
         return redirect('admin/tambah-opd')->with('success', 'Data OPD berhasil ditambahkan.');
     }
+    function delete($id){
+        $user = User::findOrFail($id);
+        $user->delete();
+        return redirect('admin/tambah-opd')->with('success', 'Data Berhasil Di Hapus');
+    }
 
     
 

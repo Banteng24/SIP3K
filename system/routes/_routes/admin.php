@@ -8,6 +8,7 @@ use App\Http\Controllers\admin\PajakController;
 use App\Http\Controllers\admin\PensiunController;
 use App\Http\Controllers\admin\TambahopdController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\admin\CutiController;
 use App\Http\Controllers\user\TambahController;
 use Illuminate\Support\Facades\Route;
 
@@ -29,6 +30,7 @@ Route::prefix('tambah-opd')->controller(AuthController::class)->group(function (
     Route::get('/', 'index');
     Route::get('create', 'create');
     Route::post('submit', 'submit');
+    Route::get('delete/{id}', 'delete');    // Proses form delete pegawai pajak
 
 });
 
@@ -41,6 +43,11 @@ Route::prefix('pajak')->controller(PajakController::class)->group(function () {
 
 });
 Route::prefix('akun-baru')->controller(AkunbaruController::class)->group(function () {
+    Route::get('/', 'index');
+    Route::get('create', 'create');
+
+});
+Route::prefix('cuti')->controller(CutiController::class)->group(function () {
     Route::get('/', 'index');
 
 });

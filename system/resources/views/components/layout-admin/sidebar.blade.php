@@ -29,7 +29,7 @@
                 <div class="menu-title">Cuti</div>
               </a>
               <ul class="dropdown-menu">
-                <li> <a class="dropdown-item" href="ecommerce-products.html"><i class="bx bx-right-arrow-alt"></i>Products</a>
+                <li> <a class="dropdown-item" href="{{url('admin/cuti')}}"><i class="bx bx-right-arrow-alt"></i>Cuti</a>
                 </li>
                 </ul>
               </li>
@@ -74,7 +74,7 @@
                 <div class="menu-title">Akun Baru</div>
               </a>
               <ul class="dropdown-menu">
-                <li> <a class="dropdown-item" href="{{url('admin/akun-baru')}}"><i class="bx bx-right-arrow-alt"></i>Widgets</a>
+                <li> <a class="dropdown-item" href="{{url('admin/akun-baru')}}"><i class="bx bx-right-arrow-alt"></i>Akun Baru</a>
                 </li>
               </ul>
             </li>
