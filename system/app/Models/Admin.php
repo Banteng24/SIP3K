@@ -2,17 +2,32 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Foundation\Auth\User as Authenticatable; // penting untuk login
 use Illuminate\Notifications\Notifiable;
 
-// class admin extends Authenticatable
-// {
-//     use HasFactory, Notifiable;
+class Admin extends Authenticatable
+{
+    use Notifiable;
 
-//     protected $table = 'tambahs';
+    // Tabel yang dipakai (defaultnya 'admins')
+    protected $table = 'admins';
 
-//     protected $fillable = ['nama_opd', 'email', 'password'];
+    // Kolom yang bisa diisi massal (fillable)
+    protected $fillable = [
+        'nama',
+        'email',
+        'password',
+    ];
 
-//     protected $hidden = ['password', 'remember_token'];
-// }
+    // Kolom yang tidak ingin ditampilkan ketika di-convert ke array/json
+    protected $hidden = [
+        'password',
+        'remember_token',
+    ];
+
+    // Jika menggunakan tipe tanggal untuk kolom tertentu (opsional)
+    protected $dates = [
+        'created_at',
+        'updated_at',
+    ];
+}

@@ -4,6 +4,15 @@
             <h6 class="mb-0 text-uppercase">Tambah OPD</h6>
 
             <!-- Form mulai di sini -->
+                        @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+                         @endif
             <form action="{{ url('admin/tambah-opd/submit') }}" method="POST">
                 @csrf
                 <hr/>
@@ -34,6 +43,12 @@
                                 <label for="password" class="col-sm-3 col-form-label">Password</label>
                                 <div class="col-sm-9">
                                     <input type="password" name="password" class="form-control" id="password" placeholder="Masukkan password" required>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <label for="password_confirmation" class="col-sm-3 col-form-label">Konfirmasi Password</label>
+                                <div class="col-sm-9">
+                                    <input type="password" name="password_confirmation" class="form-control" id="password_confirmation" placeholder="Ulangi password" required>
                                 </div>
                             </div>
 

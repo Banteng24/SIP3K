@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Admin;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -11,8 +12,8 @@ class AuthController extends Controller
 {
     // Menampilkan daftar OPD
     public function index() {
-        $users = User::all(); // lebih baik pakai $users
-        return view('admin.tambah-opd.index', compact('users'));
+        $user = User::all(); // lebih baik pakai $users
+        return view('admin.tambah-opd.index', compact('user'));
     }
 
     // Form tambah OPD
@@ -25,38 +26,59 @@ class AuthController extends Controller
         $request->validate([
             'nama_opd' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email',
-            'password' => 'required|string|min:6|confirmed', // pakai password confirmation
+            'password' => 'required|string|min:6',
+
         ]);
 
         $user = new User();
-        $user->nama_opd = $request->nama_opd; // pastikan kolom ini ada di tabel users
-        $user->email = $request->email;
-        $user->password = Hash::make($request->password);
+        $user->nama_opd= $request->nama_opd; // pastikan kolom ini ada di tabel users
+        $user->email= $request->email;
+        $user->password= Hash::make($request->password);
         $user->save();
 
         return redirect('admin/tambah-opd')->with('success', 'Data OPD berhasil ditambahkan.');
     }
 
+    
+
     // Tampilkan halaman login
-    public function login() {
+    public function login()
+    {
+        if(Auth::guard('admin')->check()) {
+            return redirect('admin');
+        }
+
+        if(Auth::guard('user')->check()) {
+            return redirect('user');
+        }
         return view('admin.login');
     }
 
     // Proses login admin (gunakan guard default 'web' jika tidak ada guard khusus)
-    public function masuk(Request $request) {
-        $credentials = $request->validate([
-            'email' => ['required', 'email'],
-            'password' => ['required'],
-        ]);
+    public function masuk(Request $request) 
+    {
+          // Cek apakah email ada di tabel admin
+          $credentials = $request->validate([
+            'email' => 'required|email',
+            'password' => 'required',
+        ],[
+            'email.required' => 'Email is required',
+            'email.email' => 'Email must be a valid email address',
+            'password.required' => 'Password is required',
+        ]);  
 
-        if (Auth::attempt($credentials)) { // gunakan Auth::attempt() pakai guard default
+        
+        if (Auth::guard('admin')->attempt($credentials)) {
             $request->session()->regenerate();
-            return redirect()->intended('user/')->with('success', 'Login berhasil!');
+            return redirect()->intended('admin')->with('success', 'Login successful');
+        }elseif (Auth::guard('user')->attempt($credentials)) {
+            $request->session()->regenerate();
+            return redirect('user')->with('success', 'Login successful');
+        }else{
+            return back()->withErrors([
+                'email' => 'Email or password is incorrect', 
+             ]);
         }
-
-        return back()->withErrors([
-            'email' => 'Email atau password salah.',
-        ])->withInput();
     }
 
     // Logout
@@ -67,3 +89,4 @@ class AuthController extends Controller
         return redirect('/login');
     }
 }
+

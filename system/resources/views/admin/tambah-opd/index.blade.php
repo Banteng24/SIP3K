@@ -20,7 +20,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($tambah as $no => $master)
+                        @foreach ($user as $no => $master)
                             <tr>
                                 <td>{{ $no + 1 }}</td>
                                 <td>{{ $master->nama_opd}}</td>

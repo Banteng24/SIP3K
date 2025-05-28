@@ -7,13 +7,17 @@ use App\Http\Controllers\user\CutiController;
 use Illuminate\Support\Facades\Route;
 
 /// Route untuk User, wajib login dulu
-Route::prefix('user')->middleware('auth')->group(function () {
-    include "_routes/user.php";
+Route::middleware('auth:user')->group(function () {
+    Route::prefix('user')->group(function () {
+        include "_routes/user.php";
+    });
 });
 
 // Route untuk Admin (bebas dulu)
-Route::prefix('admin')->group(function () {
-    include "_routes/admin.php";
+Route::middleware('auth:admin')->group(function (){
+    Route::prefix('admin')->group(function () {
+        include "_routes/admin.php";
+    });
 });
 
 // Route login (bebas akses) - kasih nama route 'login' supaya middleware bisa redirect
