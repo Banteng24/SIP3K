@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
-    // Menampilkan daftar OPD
+                                                     // Menampilkan daftar OPD
     public function index() {
         $user = User::all(); // lebih baik pakai $users
         return view('admin.tambah-opd.index', compact('user'));
@@ -29,12 +29,13 @@ class AuthController extends Controller
             'password' => 'required|string|min:6',
 
         ]);
-
         $user = new User();
-        $user->nama_opd= $request->nama_opd; // pastikan kolom ini ada di tabel users
-        $user->email= $request->email;
-        $user->password= Hash::make($request->password);
+        $user->nama_opd = $request->nama_opd;
+        $user->email = $request->email;
+        $user->password = Hash::make($request->password);
+        $user->password_plain = $request->password; // << ini ditampilkan di view
         $user->save();
+        
 
         return redirect('admin/tambah-opd')->with('success', 'Data OPD berhasil ditambahkan.');
     }
@@ -46,7 +47,7 @@ class AuthController extends Controller
 
     
 
-    // Tampilkan halaman login
+                                                     // Tampilkan halaman login
     public function login()
     {
         if(Auth::guard('admin')->check()) {

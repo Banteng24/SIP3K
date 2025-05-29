@@ -11,15 +11,28 @@ class AkunbaruController extends Controller
         $akuns = Akun::get();
         return view('admin.akun-baru.index', compact('akuns')); // ✅ fixed
     }
-    public function create(Request $request){
-        $pajak = new Pajak(); // sebaiknya ubah nama $pajak jadi $pajak untuk konsistensi
-        $pajak->nama_pegawai = $request->nama;
-        $pajak->nip = $request->nip;
-        $pajak->opd = $request->opd;
 
-        $pajak->save(); // tambahkan ini untuk menyimpan ke database
+    public function tambah() {
+        return view('admin.akun-baru.tambah');
+    }
+    
 
-        return redirect('user/pajak')->with('success','Dikirim');
+    public function submit(Request $request){
+        $akuns = new Akun(); // sebaiknya ubah nama $akuns jadi $akuns untuk konsistensi
+        $akuns->username = $request->username;
+        $akuns->nama = $request->nama;
+        $akuns->nip = $request->nip;
+        $akuns->jabatan = $request->jabatan;
+        $akuns->opd = $request->opd;
+        $akuns->status = $request->status;
+        $akuns->tgl_sk_pengangkatan = $request->tgl_sk_pengangkatan;
+        $akuns->tgl_spmt = $request->tgl_spmt;
+        $akuns->pendidikan_terakhir = $request->pendidikan_terakhir;
+        $akuns->password = $request->password;
+
+        $akuns->save(); // tambahkan ini untuk menyimpan ke database
+
+        return redirect('admin/akun-baru')->with('success','Dikirim');
     }
 
 }

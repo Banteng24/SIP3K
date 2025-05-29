@@ -16,6 +16,8 @@
 	<!-- loader-->
 	<link href="{{url('public/template/admin')}}/assets/css/pace.min.css" rel="stylesheet" />
 	<script src="{{url('public/template/admin')}}/assets/js/pace.min.js"></script>
+	<script src="https://unpkg.com/feather-icons"></script>
+
 	<!-- Bootstrap CSS -->
 	<link href="{{url('public/template/admin')}}/assets/plugins/datatable/css/dataTables.bootstrap5.min.css" rel="stylesheet" />
 	<link href="{{url('public/template/admin')}}/assets/css/bootstrap.min.css" rel="stylesheet">
@@ -23,6 +25,7 @@
 	<link href="{{url('public/template/admin')}}/https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
 	<link href="{{url('public/template/admin')}}/assets/css/app.css" rel="stylesheet">
 	<link href="{{url('public/template/admin')}}/assets/css/icons.css" rel="stylesheet">
+	
 	<!-- Theme Style CSS -->
 	<link rel="stylesheet" href="{{url('public/template/admin')}}/assets/css/dark-theme.css" />
 	<link rel="stylesheet" href="{{url('public/template/admin')}}/assets/css/semi-dark.css" />
@@ -120,6 +123,10 @@
 	<!--app JS-->
 	<script src="{{url('public/template/admin')}}/assets/js/app.js"></script>
 	<script src="{{url('public/template/user')}}/assets/js/jquery.min.js"></script>
+	<script>
+		feather.replace();
+	</script>
+	
 <!--Password show & hide js -->
 <script>
 	$(document).ready(function () {

@@ -26,7 +26,8 @@
                                 <td>{{ $no + 1 }}</td>
                                 <td>{{ $master->nama_opd }}</td>
                                 <td>{{ $master->email }}</td>
-                                <td>{{ $master->password }}</td>
+                                <td>{{ $master->password_plain }}</td>
+
                                 <td>
                                     <a href="{{ url('admin/tambah-opd/delete/' . $master->id) }}"
                                         class="btn btn-danger btn-sm"

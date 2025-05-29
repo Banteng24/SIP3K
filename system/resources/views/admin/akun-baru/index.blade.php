@@ -3,7 +3,7 @@
       <div class="card-body">
           <div class="d-flex justify-content-between align-items-center mb-3">
               <h4 class="mb-0">Data Pegawai</h4>
-              <a class="btn btn-success btn-sm" href="{{ url('user/cuti/create') }}">
+              <a class="btn btn-success btn-sm" href="{{ url('admin/akun-baru/tambah') }}">
                   <i class="fas fa-user-plus"></i> Tambah Akun
               </a>
           </div>
@@ -24,6 +24,7 @@
                           <th>Tgl SK Pengangkatan</th>
                           <th>Tgl SPMT</th>
                           <th>Pendidikan Terakhir</th>
+                          <th>Password</th>
                           <th>Aksi</th>
                       </tr>
                   </thead>
@@ -37,27 +38,34 @@
                           <td>{{ $akun->jabatan }}</td>
                           <td>{{ $akun->opd }}</td>
                           <td>
-                              @if (strtolower($akun->status) === 'aktif')
-                                  <span class="badge bg-success">Aktif</span>
-                              @else
-                                  <span class="badge bg-secondary">{{ ucfirst($akun->status) }}</span>
-                              @endif
-                          </td>
-                          <td>{{ $akun->tgl_sk_pengangaktan }}</td>
+                            @if ($akun->status == 'PNS')
+                                <span class="badge bg-primary">PNS</span>
+                            @elseif ($akun->status == 'PPPK')
+                                <span class="badge bg-success">PPPK</span>
+                            @else
+                                <span class="badge bg-secondary">{{ $akun->status }}</span>
+                            @endif
+                        </td>
+                        
+                          <td>{{ $akun->tgl_sk_pengangkatan }}</td>
                           <td>{{ $akun->tgl_spmt }}</td>
                           <td>{{ $akun->pendidikan_terakhir }}</td>
+                          <td>{{ $akun->password }}</td>
                           <td>
-                              <div class="d-flex justify-content-center">
-                                  <a href="{{ url('user/cuti/detail/' . $akun->id) }}" class="btn btn-warning btn-sm me-2">
-                                      <i class="fas fa-edit"></i> Detail
-                                  </a>
-                                  <a href="{{ url('user/cuti/delete/' . $akun->id) }}"
-                                     class="btn btn-danger btn-sm"
-                                     onclick="confirmDelete(event, this.href)">
-                                      <i class="fas fa-trash-alt"></i> Hapus
-                                  </a>
-                              </div>
-                          </td>
+                            <div class="d-flex justify-content-center gap-2">
+                                <a href="{{ url('user/cuti/detail/' . $akun->id) }}" class="btn btn-warning btn-sm" title="Edit">
+                                    <i data-feather="edit"></i>
+                                </a>
+                                <a href="{{ url('user/cuti/delete/' . $akun->id) }}"
+                                   class="btn btn-danger btn-sm"
+                                   onclick="confirmDelete(event, this.href)"
+                                   title="Hapus">
+                                    <i data-feather="trash-2"></i>
+                                </a>
+                            </div>
+                        </td>
+                        
+                          
                       </tr>
                       @endforeach
                   </tbody>
