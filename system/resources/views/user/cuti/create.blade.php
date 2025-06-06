@@ -75,9 +75,18 @@
                 <div class="row mb-3">
                   <label for="alasan_cuti" class="col-sm-3 col-form-label">Alasan Cuti</label>
                   <div class="col-sm-9">
-                    <textarea class="form-control" id="alasan_cuti" name="alasan_cuti" rows="3" placeholder="Masukkan alasan cuti"></textarea>
+                    <select class="form-control" id="alasan_cuti" name="alasan_cuti">
+                      <option value="">-- Pilih Alasan Cuti --</option>
+                      <option value="CUTI TAHUNAN">Cuti Tahunan</option>
+                      <option value="CUTI BESAR">Cuti Besar</option>
+                      <option value="CUTI SAKIT">Cuti Sakit</option>
+                      <option value="CUTI BERSALIN">Cuti Bersalin</option>
+                      <option value="CUTI ALASAN PENTING">Cuti Alasan Penting</option>
+                      <option value="CUTI DI LUAR TANGGUNGAN NEGARA (CLTN)">Cuti Diluar Tanggungan Negara (CLTN)</option>
+                    </select>
                   </div>
                 </div>
+                
   
                 <div class="row mb-3">
                     <label for="jumlah_hari" class="col-sm-3 col-form-label">Jumlah Hari</label>

@@ -98,6 +98,27 @@
 	</script>
 	<!-- App JS -->
 	<script src="{{url('public/template/user')}}/assets/js/app.js"></script>
+	
+	
+
+		{{-- <script>
+			function loadSearchResult(keyword) {
+				if (keyword.length > 1) {
+					fetch("/user/pajak/live-search?keyword=" + keyword)
+
+						.then(res => res.text())
+						.then(html => {
+							document.getElementById('live-search').innerHTML = html;
+						})
+						.catch(err => {
+							console.error('Gagal fetch:', err);
+						});
+				} else {
+					document.getElementById('live-search').innerHTML = '';
+				}
+			}
+		</script> --}}
+		
 </body>
 
 </html>

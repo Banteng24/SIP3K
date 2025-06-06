@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+{{-- <!DOCTYPE html>
 <html lang="id">
 <head>
   <meta charset="UTF-8">
@@ -30,4 +30,4 @@
   <label>Jabatan: <input type="text" id="jabatan" readonly></label><br>
   <label>Unit: <input type="text" id="unit" readonly></label><br>
 </body>
-</html>
+</html> --}}

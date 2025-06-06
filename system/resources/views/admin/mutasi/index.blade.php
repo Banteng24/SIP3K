@@ -2,7 +2,7 @@
     <div class="d-flex justify-content-between align-items-center mb-2">
         <h6 class="mb-0 text-uppercase">Mutasi</h6>
         <a class="btn btn-success btn-sm" href="{{ url('admin/create') }}">
-            <i class="fas fa-user-plus"></i> Tambah Pegawai
+            <i class="fas fa-user-plus"></i> Tambah Mutasi
         </a>
     </div>
     <hr/>

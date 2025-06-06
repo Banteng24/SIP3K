@@ -34,7 +34,7 @@
 				</div>
 			  </div>
 			  <div class="col-md-4 text-center">
-				<img src="https://via.placeholder.com/80x80/6f42c1/ffffff?text=U" class="rounded-circle" width="80" height="80" alt="User">
+				<img src="{{url('public/template	/user/assets/images/dinas.jpeg')}}" class="rounded-circle" width="80" height="80" alt="">
 			  </div>
 			</div>
 		  </div>
