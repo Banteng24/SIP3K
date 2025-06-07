@@ -4,9 +4,9 @@
             <!-- Header -->
             <div class="card-title d-flex justify-content-between align-items-center">
                 <h4 class="mb-0">Pajak SPT</h4>
-                <a class="btn btn-success btn-sm" href="{{ url('user/pajak/tambah') }}">
+                {{-- <a class="btn btn-success btn-sm" href="{{ url('user/tambah') }}">
                     <i class="fas fa-user-plus"></i> Tambah Pajak
-                </a>
+                </a> --}}
             </div>
             <hr>
 
@@ -93,10 +93,10 @@
                                 <td>
                                     <div class="d-flex justify-content-center gap-1">
                                         <a href="{{ url('user/pajak/edit', $data->id) }}" 
-                                           class="btn btn-warning btn-sm">
-                                            <i class="fas fa-edit"></i> Lihat Detail
+                                            class="btn btn-sm btn-info">
+                                            <i class="fas fa-eye"></i> Lihat Detail
                                         </a>
-                                        <form action="{{ url('user/pajak/delete', $data->id) }}" 
+                                        {{-- <form action="{{ url('user/pajak/delete', $data->id) }}" 
                                               method="POST" 
                                               style="display: inline;">
                                             @csrf
@@ -106,7 +106,7 @@
                                                     onclick="return confirm('Apakah Anda yakin ingin menghapus data pegawai {{ $data->nama_pegawai }} (NIP: {{ $data->nip }})?')">
                                                 <i class="fas fa-trash-alt"></i> Hapus
                                             </button>
-                                        </form>
+                                        </form> --}}
                                     </div>
                                 </td>
                             </tr>

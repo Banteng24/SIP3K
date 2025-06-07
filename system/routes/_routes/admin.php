@@ -20,6 +20,8 @@ Route::controller(HomeController::class)->group(function () {
 Route::prefix('mutasi')->controller(MutasiController::class)->group(function () {
     Route::get('/', 'index');
     Route::post('submit', 'create');    // Proses form tambah pegawai pajak
+    Route::get('edit/{id}', 'edit');    // Proses form tambah pegawai pajak
+    Route::post('update', 'update');    // Proses form tambah pegawai pajak
 });
 
 Route::prefix('create')->controller(CreateConroller::class)->group(function () {

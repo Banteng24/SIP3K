@@ -2,7 +2,7 @@
     <div class="row">
         <div class="col-xl-9 mx-auto">
             <h6 class="mb-0 text-uppercase">Tambah Mutasi</h6>
-            <form action="{{url('admin/mutasi/submit')}}" method="POST">
+            {{-- <form action="{{url('admin/mutasi/submit')}}" method="POST"> --}}
                 @csrf
                 <hr/>
                 <div class="card border-top border-0 border-4 border-info">
@@ -17,35 +17,35 @@
                             <div class="row mb-3">
                                 <label for="namaPegawai" class="col-sm-3 col-form-label">Nama Pegawai</label>
                                 <div class="col-sm-9">
-                                    <input type="text" name="nama_pegawai" class="form-control" id="namaPegawai" placeholder="Masukkan nama pegawai" required>
+                                    <input type="text" name="nama_pegawai" value="{{ $mutasi->nama_pegawai }}" class="form-control" id="namaPegawai" placeholder="Masukkan nama pegawai" required>
                                 </div>
                             </div>
         
                             <div class="row mb-3">
                                 <label for="nip" class="col-sm-3 col-form-label">NIP</label>
                                 <div class="col-sm-9">
-                                    <input type="text" name="nip" class="form-control" id="nip" placeholder="Masukkan NIP" required>
+                                    <input type="text" name="nip" value="{{ $mutasi->nip }}" class="form-control" id="nip" placeholder="Masukkan NIP" required>
                                 </div>
                             </div>
         
                             <div class="row mb-3">
                                 <label for="nip" class="col-sm-3 col-form-label">Opd Lama</label>
                                 <div class="col-sm-9">
-                                    <input type="text" name="opd_lama" class="form-control" id="opdlama" placeholder="Masukkan Opd Lama" required>
+                                    <input type="text" name="opd_lama" value="{{ $mutasi->opd_lama }}"  class="form-control" id="opdlama" placeholder="Masukkan Opd Lama" required>
                                 </div>
                             </div>
         
                             <div class="row mb-3">
                                 <label for="jabatan" class="col-sm-3 col-form-label">Jabatan Lama</label>
                                 <div class="col-sm-9">
-                                    <input type="text" name="jabatan" class="form-control" id="jabatan" placeholder="Masukkan jabatan lama" required>
+                                    <input type="text" name="jabatan" value="{{ $mutasi->jabatan_lama }}"  class="form-control" id="jabatan" placeholder="Masukkan jabatan lama" required>
                                 </div>
                             </div>
         
                             <div class="row mb-3">
                                 <label for="opdBaru" class="col-sm-3 col-form-label">OPD Baru</label>
                                 <div class="col-sm-9">
-                                    <select name="opd_baru" class="form-control" id="opdBaru" required>
+                                    <select name="opd_baru" value="{{ $mutasi->opd_baru }}" class="form-control" id="opdBaru" required>
                                         <option value="">-- Pilih OPD --</option>
                                         <option value="Sekretariat Daerah">Sekretariat Daerah</option>
                                         <option value="Dinas Pendidikan">Dinas Pendidikan</option>
@@ -81,21 +81,21 @@
                             <div class="row mb-3">
                                 <label for="jabatanBaru" class="col-sm-3 col-form-label">Jabatan Baru</label>
                                 <div class="col-sm-9">
-                                    <input type="text" name="jabatan_baru" class="form-control" id="jabatanBaru" placeholder="Masukkan jabatan baru" required>
+                                    <input type="text" name="jabatan_baru" value="{{ $mutasi->jabatan_baru }}"  class="form-control" id="jabatanBaru" placeholder="Masukkan jabatan baru" required>
                                 </div>
                             </div>
         
                             <div class="row mb-3">
                                 <label for="tanggalSk" class="col-sm-3 col-form-label">Tanggal SK</label>
                                 <div class="col-sm-9">
-                                    <input type="date" name="tanggal_sk" class="form-control" id="tanggalSk" required>
+                                    <input type="date" name="tanggal_sk" value="{{ $mutasi->tanggal_sk }}"  class="form-control" id="tanggalSk" required>
                                 </div>
                             </div>
         
                             <div class="row mb-3">
                                 <label for="pimpinanOpd" class="col-sm-3 col-form-label">Pimpinan OPD</label>
                                 <div class="col-sm-9">
-                                    <select name="pimpinan_opd" class="form-control" id="pimpinanOpd" required>
+                                    <select name="pimpinan_opd" value="{{ $mutasi->pimpinan_opd }}"  class="form-control" id="pimpinanOpd" required>
                                         <option value="">-- Pilih --</option>
                                         <option value="Ya">Ya</option>
                                         <option value="Tidak">Tidak</option>

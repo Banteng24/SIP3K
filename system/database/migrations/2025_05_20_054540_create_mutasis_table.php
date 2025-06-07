@@ -15,10 +15,11 @@ return new class extends Migration
             $table->id();
             $table->string('nama_pegawai')->nullable();
             $table->string('nip')->nullable();
+            $table->string('opd_lama')->nullable();
             $table->string('jabatan')->nullable();
             $table->string('opd_baru')->nullable();
             $table->string('jabatan_baru')->nullable();
-            $table->string('tanggal_sk')->nullable();
+            $table->date('tanggal_sk')->nullable();
             $table->string('pimpinan_opd')->nullable();
             $table->timestamps();
         });

@@ -91,7 +91,7 @@
                 <div class="row mb-3">
                     <label for="jumlah_hari" class="col-sm-3 col-form-label">Jumlah Hari</label>
                     <div class="col-sm-9">
-                      <input type="number" class="form-control" id="jumlah_hari" name="jumlah_hari" placeholder="Masukkan jumlah hari cuti" min="1" max="24">
+                      <input type="number" class="form-control" id="jumlah_hari" name="jumlah_hari" placeholder="Masukkan jumlah hari cuti" min="1" max="12">
                     </div>
                   </div>
                   

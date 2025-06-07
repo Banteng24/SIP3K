@@ -4,7 +4,7 @@
             <img src="{{url('public/template/user')}}/assets/images/logo-icon.png" class="logo-icon-2" alt="" />
         </div>
         <div>
-            <h4 class="logo-text">Syndash</h4>
+            <h4 class="logo-text">SIP3K</h4>
         </div>
         <a href="{{url('public/template/user')}}/javascript:;" class="toggle-btn ms-auto"> <i class="bx bx-menu"></i>
         </a>

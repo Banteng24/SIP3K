@@ -44,7 +44,7 @@
                         <div class="border p-4 rounded">
                             <div class="card-title d-flex align-items-center">
                                 <div><i class="bx bxs-user me-1 font-22 text-info"></i></div>
-                                <h5 class="mb-0 text-info">Edit Data Pajak</h5>
+                                <h5 class="mb-0 text-info">Silahkan Masukkan Pajak</h5>
                             </div>
                             <hr>
 

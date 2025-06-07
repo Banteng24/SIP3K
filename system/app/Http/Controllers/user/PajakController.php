@@ -42,7 +42,7 @@ class PajakController extends Controller
     public function edit($id)
     {
         $pajak = Pajak::findOrFail($id);
-        return view('user/pajak.edit', compact('pajak'));
+        return view('user.pajak.edit', compact('pajak'));
     }
 
    // In your PajakController update method
@@ -51,7 +51,7 @@ class PajakController extends Controller
        try {
            // Validasi file yang diupload
            $request->validate([
-               'file' => 'nullable|file|mimes:pdf,doc,docx,jpg,jpeg,png|max:2048'
+               'file' => 'nullable|file|mimes:pdf,doc,docxz,jpg,jpeg,png|max:2048'
            ], [
                'file.mimes' => 'Format file harus berupa PDF, DOC, DOCX, JPG, atau PNG.',
                'file.max' => 'Ukuran file maksimal 2MB.',
