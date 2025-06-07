@@ -2,7 +2,7 @@
     <div class="row">
         <div class="col-xl-9 mx-auto">
             <h6 class="mb-0 text-uppercase">Tambah Mutasi</h6>
-            <form action="{{url('admin/mutasi/submit')}}" method="POST">
+            <form action="{{url('admin/mutasi/update')}}" method="POST">
                 @csrf
                 <hr/>
                 <div class="card border-top border-0 border-4 border-info">

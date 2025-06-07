@@ -7,9 +7,22 @@ use Illuminate\Http\Request;
 
 class MutasiController extends Controller
 {
-    public function index(){
-        $mutasi = mutasi::get();
-        return view('admin.mutasi.index', compact('mutasi')); // ✅ fixed
+    public function index(Request $request)
+    {
+        // Ambil parameter pencarian NIP saja
+        $search = $request->get('search') ?? $request->get('keyword') ?? null;
+        
+        if (!empty($search)) {
+            // Search hanya berdasarkan NIP dengan exact match atau partial match
+            $mutasi = mutasi::where('nip', 'like', "%$search%")
+                         ->orderBy('created_at', 'desc')
+                         ->get();
+        } else {
+            // Jika tidak ada pencarian, kirim collection kosong
+            $mutasi = collect();
+        }
+        
+        return view('admin.mutasi.index', compact('mutasi'));
     }
 
     public function create(Request $request){
@@ -46,6 +59,26 @@ class MutasiController extends Controller
         $mutasi->update();
 
     return redirect('admin/mutasi');
+    }
+
+    public function cari(Request $request)
+    {
+        $keyword = $request->keyword;
+        return redirect()->route('admin.mutasi.index', ['search' => $keyword]);
+    }
+
+    // API untuk autocomplete NIP
+    public function autocomplete(Request $request)
+    {
+        $search = $request->get('query');
+        
+        $data = mutasi::where('nip', 'like', "%$search%")
+                    ->select('nip', 'nama_pegawai')
+                    ->distinct()
+                    ->limit(20)
+                    ->get();
+        
+        return response()->json($data);
     }
 
 
