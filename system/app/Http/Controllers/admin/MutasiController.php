@@ -46,7 +46,8 @@ class MutasiController extends Controller
         return view('admin.mutasi.edit', compact('mutasi'));
     }
 
-    public function update(Request $request, $id){
+    public function update(Request $request, $id)
+    {
         $mutasi = Mutasi::findOrFail($id);
         $mutasi->nama_pegawai = $request->nama_pegawai;
         $mutasi->nip = $request->nip;
@@ -57,8 +58,9 @@ class MutasiController extends Controller
         $mutasi->tanggal_sk = $request->tanggal_sk;
         $mutasi->pimpinan_opd = $request->pimpinan_opd;
         $mutasi->update();
-
-    return redirect('admin/mutasi');
+    
+        return redirect('admin/mutasi')
+            ->with('success', 'Data mutasi berhasil diperbarui untuk ' . $mutasi->nama_pegawai . '! 📄✅');
     }
 
     public function cari(Request $request)

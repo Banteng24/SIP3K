@@ -87,8 +87,9 @@ class PajakController extends Controller
            }
            
            // Redirect ke halaman edit dengan pesan sukses
-           return redirect(url('user/pajak/edit/' . $id))
-               ->with('success', 'File pajak berhasil diupload untuk ' . $namaPegawai . '! 📄✅');
+           return redirect('user/pajak')
+           ->with('success', 'File pajak berhasil diupload untuk ' . $namaPegawai . '! 📄✅');
+       
                
        } catch (\Illuminate\Validation\ValidationException $e) {
            // Jika validasi gagal, kembali ke halaman sebelumnya dengan error

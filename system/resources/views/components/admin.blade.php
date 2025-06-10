@@ -19,6 +19,8 @@
 	<script src="https://unpkg.com/feather-icons"></script>
 
 	<!-- Bootstrap CSS -->
+	<link href="{{url('public/template/admin')}}/assets/plugins/datatable/css/dataTables.bootstrap4.min.css" rel="stylesheet" type="text/css">
+	<link href="{{url('public/template/admin')}}/assets/plugins/datatable/css/buttons.bootstrap4.min.css" rel="stylesheet" type="text/css">
 	<link href="{{url('public/template/admin')}}/assets/plugins/datatable/css/dataTables.bootstrap5.min.css" rel="stylesheet" />
 	<link href="{{url('public/template/admin')}}/assets/css/bootstrap.min.css" rel="stylesheet">
 	<link href="{{url('public/template/admin')}}/assets/css/bootstrap-extended.css" rel="stylesheet">
@@ -105,23 +107,23 @@
 		});
 	</script>
 	<!-- App JS -->
-	<script src="assets/js/app.js"></script>
-	<script>
-		$(document).ready(function() {
-			$('#example').DataTable();
-		  } );
-	</script>
-	<script>
-		$(document).ready(function() {
-			var table = $('#example2').DataTable( {
-				lengthChange: false,
-				buttons: [ 'copy', 'excel', 'pdf', 'print']
+		{{-- <script src="assets/js/app.js"></script>
+		<script>
+			$(document).ready(function() {
+				$('#example').DataTable();
 			} );
-		 
-			table.buttons().container()
-				.appendTo( '#example2_wrapper .col-md-6:eq(0)' );
-		} );
-	</script>
+		</script>
+		<script>
+			$(document).ready(function() {
+				var table = $('#example2').DataTable( {
+					lengthChange: false,
+					buttons: [ 'copy', 'excel', 'pdf', 'print']
+				} );
+			
+				table.buttons().container()
+					.appendTo( '#example2_wrapper .col-md-6:eq(0)' );
+			} );
+		</script> --}}
 	<!--app JS-->
 	<script src="{{url('public/template/admin')}}/assets/js/app.js"></script>
 	<script>
@@ -143,6 +145,20 @@
 	<!--app JS-->
 	<script src="{{url('public/template/admin')}}/assets/js/app.js"></script>
 	<script src="{{url('public/template/user')}}/assets/js/jquery.min.js"></script>
+	<script src="{{url('public/template/admin')}}/assets/plugins/datatable/js/jquery.dataTables.min.js"></script>
+	<script>
+		$(document).ready(function () {
+			//Default data table
+			$('#example').DataTable();
+			var table = $('#example2').DataTable({
+				lengthChange: false,
+				buttons: ['copy', 'excel', 'pdf', 'print', 'colvis']
+			});
+			table.buttons().container().appendTo('#example2_wrapper .col-md-6:eq(0)');
+		});
+	</script>
+	<!-- App JS -->
+	<script src="{{url('public/template/admin')}}/assets/js/app.js"></script>
 	<script>
 		feather.replace();
 	</script>

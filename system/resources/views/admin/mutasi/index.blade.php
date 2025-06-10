@@ -1,11 +1,23 @@
 <x-admin>
+    @if (session('success'))
+    <div class="alert alert-success">
+        {{ session('success') }}
+    </div>
+@endif
+
+@if (session('error'))
+    <div class="alert alert-danger">
+        {{ session('error') }}
+    </div>
+@endif
+
     <div class="card">
         <div class="card-body">
             <!-- Header -->
             <div class="card-title d-flex justify-content-between align-items-center">
                 <h4 class="mb-0 text-uppercase">Data Mutasi Pegawai</h4>
                 {{-- <a class="btn btn-success btn-sm" href="{{ url('admin/create') }}">
-                    <i class="fas fa-user-plus"></i> Tambah Mutasi
+                    <i class="fas fa-admin-plus"></i> Tambah Mutasi
                 </a> --}}
             </div>
             <hr>
@@ -60,6 +72,7 @@
                             <th>Jabatan Baru</th>
                             <th>Tanggal SK</th>
                             <th>Pimpinan OPD</th>
+                            <th>Status</th>
                             <th>Aksi</th>
                         </tr>
                     </thead>
@@ -75,6 +88,17 @@
                                 <td>{{ $data->jabatan_baru }}</td>
                                 <td>{{ $data->tanggal_sk }}</td>
                                 <td>{{ $data->pimpinan_opd }}</td>
+                                <td>
+                                    @if($data->pimpinan_opd)
+                                        <span class="badge bg-success">
+                                            <i class="fas fa-check"></i> Berhasil
+                                        </span>
+                                    @else
+                                        <span class="badge bg-danger">
+                                            <i class="fas fa-times"></i> Belum
+                                        </span>
+                                    @endif
+                                </td>
 
                                 <td>
                                     <div class="d-flex justify-content-center gap-1">
@@ -83,7 +107,7 @@
                                             <i class="fas fa-eye"></i> Lihat Detail
                                         </a>
                                         {{-- 
-                                        <form action="{{ url('user/pajak/delete', $data->id) }}" 
+                                        <form action="{{ url('admin/pajak/delete', $data->id) }}" 
                                               method="POST" 
                                               style="display: inline;">
                                             @csrf
@@ -108,7 +132,7 @@
                                             <p class="mb-2">Tidak ada pegawai dengan NIP "{{ request('search') }}"</p>
                                             <small class="text-muted">Pastikan NIP yang dimasukkan benar (18 digit angka)</small>
                                             <br>
-                                            <a href="{{ url('user/pajak') }}" class="btn btn-secondary mt-2">
+                                            <a href="{{ url('admin/pajak') }}" class="btn btn-secondary mt-2">
                                                 <i class="fas fa-arrow-left"></i> Tampilkan Semua Data
                                             </a>
                                         @else

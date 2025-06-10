@@ -41,6 +41,8 @@ Route::prefix('tambah-opd')->controller(AuthController::class)->group(function (
 
 Route::prefix('pensiun')->controller(PensiunController::class)->group(function () {
     Route::get('/', 'index');
+    Route::get('edit/{id}', 'edit');
+    Route::post('submit/{id}', 'submit');
 
 });
 Route::prefix('pajak')->controller(PajakController::class)->group(function () {
