@@ -43,7 +43,7 @@
                 <td>{{ $data->jumlah_hari }}</td>
                 <td>
                   @if ($data->file_pendukung)
-                    <a href="{{ url('system/public/uploads/' . $data->file_pendukung) }}" 
+                    <a href="{{ url('system/public/uploads/file_pendukung/' . $data->file_pendukung) }}" 
                        target="_blank" 
                        class="btn btn-outline-primary btn-sm">
                       <i class="fas fa-file-alt"></i> Lihat File

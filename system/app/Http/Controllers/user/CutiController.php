@@ -27,7 +27,7 @@ class CutiController extends Controller
             'tanggal_mulai' => 'required|date',
             'tanggal_selesai' => 'required|date|after_or_equal:tanggal_mulai',
             'alasan_cuti' => 'required',
-            'jumlah_hari' => 'required|integer|min:1|max:12',
+            'jumlah_hari' => 'required|integer|min:1',
             'file_pendukung' => 'nullable|file|mimes:pdf,doc,docx,jpg,jpeg,png|max:2048'
         ]);
 
@@ -93,13 +93,13 @@ class CutiController extends Controller
         $cuti->tanggal_selesai = $request->tanggal_selesai;
         $cuti->alasan_cuti = $request->alasan_cuti;
         $cuti->jumlah_hari = $request->jumlah_hari;
-        $cuti->status = 'PENDING'; // Default status
+        $cuti->status = 'Berhasil'; // Default status
         
         // Handle file upload
         if ($request->hasFile('file_pendukung')) {
             $file = $request->file('file_pendukung');
             $filename = time() . '_' . preg_replace('/[^A-Za-z0-9\-\.]/', '', $file->getClientOriginalName());
-            $file->move(public_path('uploads/file_pendukung'), $filename);
+            $file->move(public_path('uploads/'), $filename);
             $cuti->file_pendukung = $filename;
         }
 

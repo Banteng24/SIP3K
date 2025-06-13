@@ -34,7 +34,7 @@
                                    class="form-control" 
                                    placeholder="Masukkan NIP pegawai (contoh: 198512252010012012)" 
                                    value="{{ request('search') }}"
-                                   pattern="[0-9]{19}"
+                                   pattern="[0-9]{18}"
                                    title="NIP harus 18 digit angka"
                                    autocomplete="off">
                             <div id="autocompleteResults" class="autocomplete-results"></div>

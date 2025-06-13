@@ -24,8 +24,7 @@ return new class extends Migration
                 $table->string('alasan_cuti');
                 $table->integer('jumlah_hari');
                 $table->string('file_pendukung')->nullable();
-                $table->enum('status', ['PENDING', 'DISETUJUI', 'DITOLAK'])->default('PENDING');
-                $table->text('catatan')->nullable(); // Untuk catatan admin/atasan
+                $table->enum('status', ['BERHASIL', 'DITOLAK'])->default('BERHASIL');
                 $table->timestamps();
                 
                 // Index untuk optimasi query

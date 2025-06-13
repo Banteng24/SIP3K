@@ -54,7 +54,7 @@
                 </div>
             </div>
 
-            <div class="card">
+            <div class="card">  
                 <div class="card-body">
                     <h6 class="mb-3">Informasi & Bantuan</h6>
                     <div class="accordion accordion-flush" id="faqAccordionAdmin">

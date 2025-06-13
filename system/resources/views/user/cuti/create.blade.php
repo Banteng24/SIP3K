@@ -27,7 +27,7 @@
                   <input type="text" class="form-control @error('nip') is-invalid @enderror" 
                          id="nip" name="nip" value="{{ old('nip') }}"
                          placeholder="Contoh: 19850925 201204 1001" required>
-                  <small class="text-muted">Format: <code>19850925 201204 1001</code></small>
+                  <small class="text-muted">Format: <code>198509252012041001</code></small>
                   @error('nip')
                     <div class="invalid-feedback">{{ $message }}</div>
                   @enderror
@@ -116,7 +116,7 @@
                 <div class="col-sm-9">
                   <input type="number" class="form-control @error('jumlah_hari') is-invalid @enderror" 
                          id="jumlah_hari" name="jumlah_hari" value="{{ old('jumlah_hari') }}"
-                         placeholder="Otomatis terisi berdasarkan tanggal" min="1" max="12" readonly>
+                         placeholder="Otomatis terisi berdasarkan tanggal" min="1" readonly>
                   <small class="text-muted">Jumlah hari akan otomatis dihitung berdasarkan tanggal mulai dan selesai</small>
                   @error('jumlah_hari')
                     <div class="invalid-feedback">{{ $message }}</div>
