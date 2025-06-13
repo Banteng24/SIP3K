@@ -16,7 +16,7 @@
       <div class="card-body">
           <!-- Header -->
           <div class="card-title d-flex justify-content-between align-items-center">
-              <h4 class="mb-0">pensiun SPT</h4>
+              <h4 class="mb-0">pensiun Pegawai</h4>
               {{-- <a class="btn btn-success btn-sm" href="{{ url('admin/tambah') }}">
                   <i class="fas fa-admin-plus"></i> Tambah pensiun
               </a> --}}
@@ -87,11 +87,11 @@
                               <td>
                                 @if($data->tmt_pensiun)
                                     <span class="badge bg-success">
-                                        <i class="fas fa-check"></i> Sudah Upload
+                                        <i class="fas fa-check"></i> Pensiun
                                     </span>
                                 @else
                                     <span class="badge bg-danger">
-                                        <i class="fas fa-times"></i> Belum Upload
+                                        <i class="fas fa-times"></i> Belum Pensiun
                                     </span>
                                 @endif
                             </td>

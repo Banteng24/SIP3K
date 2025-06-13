@@ -11,19 +11,53 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('cutis', function (Blueprint $table) {
-            $table->id();
-            $table->string('nip')->nullable();
-            $table->string('nama_pegawai')->nullable();
-            $table->string('nomor_surat')->nullable();
-            $table->string('tanggal_surat')->nullable();
-            $table->string('tanggal_mulai')->nullable();
-            $table->string('tanggal_selesai')->nullable();
-            $table->string('alasan_cuti')->nullable();
-            $table->string('jumlah_hari')->nullable();
-            $table->string('file_pendukung')->nullable();
-            $table->timestamps();
-        });
+        // Jika tabel cutis belum ada, buat tabel baru
+        if (!Schema::hasTable('cutis')) {
+            Schema::create('cutis', function (Blueprint $table) {
+                $table->id();
+                $table->string('nip');
+                $table->string('nama_pegawai');
+                $table->string('nomor_surat');
+                $table->date('tanggal_surat');
+                $table->date('tanggal_mulai');
+                $table->date('tanggal_selesai');
+                $table->string('alasan_cuti');
+                $table->integer('jumlah_hari');
+                $table->string('file_pendukung')->nullable();
+                $table->enum('status', ['PENDING', 'DISETUJUI', 'DITOLAK'])->default('PENDING');
+                $table->text('catatan')->nullable(); // Untuk catatan admin/atasan
+                $table->timestamps();
+                
+                // Index untuk optimasi query
+                $table->index('nip');
+                $table->index('status');
+                $table->index(['nip', 'tanggal_mulai']);
+                $table->index(['alasan_cuti', 'status']);
+            });
+        } else {
+            // Jika tabel sudah ada, tambahkan kolom yang belum ada
+            Schema::table('cutis', function (Blueprint $table) {
+                if (!Schema::hasColumn('cutis', 'status')) {
+                    $table->enum('status', ['PENDING', 'DISETUJUI', 'DITOLAK'])->default('PENDING')->after('file_pendukung');
+                }
+                
+                if (!Schema::hasColumn('cutis', 'catatan')) {
+                    $table->text('catatan')->nullable()->after('status');
+                }
+                
+                // Tambahkan index jika belum ada
+                $indexes = Schema::getConnection()->getDoctrineSchemaManager()->listTableIndexes('cutis');
+                $indexNames = array_keys($indexes);
+                
+                if (!in_array('cutis_nip_index', $indexNames)) {
+                    $table->index('nip');
+                }
+                
+                if (!in_array('cutis_status_index', $indexNames)) {
+                    $table->index('status');
+                }
+            });
+        }
     }
 
     /**

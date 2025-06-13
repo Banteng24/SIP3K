@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('nip')->unique();
             $table->string('jabatan');
             $table->string('opd');
-            $table->date('tmt_pensiun'); // ubah ke tipe date
+            $table->date('tmt_pensiun')->nullable(); // ubah ke tipe date
             $table->timestamps();
         });
     }
