@@ -17,6 +17,9 @@ Route::prefix('cuti')->controller(CutiController::class)->group(function () {
     Route::get('create', 'create_cuti');
     Route::post('submit', 'submit_cuti');
     Route::get('sisa-kuota', 'getSisaKuota'); // AJAX untuk cek sisa kuota
+    Route::get('pegawai/{nip}', 'getPegawaiByNip');
+    Route::get('detail/{nip}', 'detail');
+    
 });
 
 // Route untuk halaman pajak
@@ -42,5 +45,6 @@ Route::prefix('tambah')->controller(TambahController::class)->group(function () 
 
     
 });
+
 
 

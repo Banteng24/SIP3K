@@ -130,7 +130,7 @@ class PajakController extends Controller
         $search = $request->get('query');
         
         $data = Pajak::where('nip', 'like', "%$search%")
-                    ->select('nip', 'nama_pegawai')
+                    ->select('nip', 'nama')
                     ->distinct()
                     ->limit(20)
                     ->get();

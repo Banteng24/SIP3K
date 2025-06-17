@@ -58,6 +58,7 @@ Route::prefix('akun-baru')->controller(AkunbaruController::class)->group(functio
 });
 Route::prefix('cuti')->controller(CutiController::class)->group(function () {
     Route::get('/', 'index');
+    Route::get('detail/{nip}', 'detail');
 
 });
 

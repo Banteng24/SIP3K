@@ -27,6 +27,7 @@
               <th>Jumlah Hari</th>
               <th>File Pendukung</th>
               <th>Status</th>
+              <th>Aksi</th>
             </tr>
           </thead>
           <tbody>
@@ -43,7 +44,7 @@
                 <td>{{ $data->jumlah_hari }}</td>
                 <td>
                   @if ($data->file_pendukung)
-                    <a href="{{ url('system/public/uploads/file_pendukung/' . $data->file_pendukung) }}" 
+                    <a href="{{ url('system/public/uploads/' . $data->file_pendukung) }}" 
                        target="_blank" 
                        class="btn btn-outline-primary btn-sm">
                       <i class="fas fa-file-alt"></i> Lihat File
@@ -59,6 +60,25 @@
                     <span class="badge bg-danger">Belum</span>
                   @endif
                 </td>
+                <td>
+                  <div class="d-flex justify-content-center gap-1">
+                      <a href="{{ url('admin/cuti/detail', $data->id) }}" 
+                          class="btn btn-sm btn-info">
+                          <i class="fas fa-eye"></i> Lihat Detail
+                      </a>
+                      {{-- <form action="{{ url('user/pajak/delete', $data->id) }}" 
+                            method="POST" 
+                            style="display: inline;">
+                          @csrf
+                          @method('DELETE')
+                          <button type="submit" 
+                                  class="btn btn-danger btn-sm"
+                                  onclick="return confirm('Apakah Anda yakin ingin menghapus data pegawai {{ $data->nama_pegawai }} (NIP: {{ $data->nip }})?')">
+                              <i class="fas fa-trash-alt"></i> Hapus
+                          </button>
+                      </form> --}}
+                  </div>
+              </td>
               </tr>
             @endforeach
           </tbody>

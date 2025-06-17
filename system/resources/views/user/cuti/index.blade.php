@@ -25,6 +25,7 @@
               <th>Jumlah Hari</th>
               <th>File Pendukung</th>
               <th>Status</th>
+              <th>Aksi</th>
             </tr>
           </thead>
           <tbody>
@@ -54,6 +55,25 @@
                     <span class="badge bg-danger">Belum</span>
                   @endif
                 </td>
+                <td>
+                  <div class="d-flex justify-content-center gap-1">
+                      <a href="{{ url('user/cuti/detail', $data->id) }}" 
+                          class="btn btn-sm btn-info">
+                          <i class="fas fa-eye"></i> Lihat Detail
+                      </a>
+                      {{-- <form action="{{ url('user/pajak/delete', $data->id) }}" 
+                            method="POST" 
+                            style="display: inline;">
+                          @csrf
+                          @method('DELETE')
+                          <button type="submit" 
+                                  class="btn btn-danger btn-sm"
+                                  onclick="return confirm('Apakah Anda yakin ingin menghapus data pegawai {{ $data->nama_pegawai }} (NIP: {{ $data->nip }})?')">
+                              <i class="fas fa-trash-alt"></i> Hapus
+                          </button>
+                      </form> --}}
+                  </div>
+              </td>
               </tr>
             @endforeach
           </tbody>

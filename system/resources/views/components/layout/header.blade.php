@@ -6,7 +6,7 @@
             </a>
         </div>
 
-        <div class="flex-grow-1 search-bar">
+        {{-- <div class="flex-grow-1 search-bar">
             <div class="input-group">
                 <button class="btn btn-search-back search-arrow-back" type="button">
                     <i class="bx bx-arrow-back"></i>
@@ -16,7 +16,7 @@
                     <i class="lni lni-search-alt"></i>
                 </button>
             </div>
-        </div>
+        </div> --}}
 
         <div class="right-topbar ms-auto">
             <ul class="navbar-nav">
@@ -26,7 +26,7 @@
                     </a>
                 </li>
 
-                <li class="nav-item dropdown dropdown-lg">
+                {{-- <li class="nav-item dropdown dropdown-lg">
                     <a class="nav-link dropdown-toggle dropdown-toggle-nocaret position-relative" href="javascript:;" data-bs-toggle="dropdown">
                         <i class="bx bx-bell vertical-align-middle"></i>
                         <span class="msg-count">8</span>
@@ -161,16 +161,16 @@
 
                         <a href="javascript:;" class="text-center msg-footer">View All Notifications</a>
                     </div>
-                </li>
+                </li> --}}
 
                 <li class="nav-item dropdown dropdown-user-profile">
                     <a class="nav-link dropdown-toggle dropdown-toggle-nocaret" href="javascript:;" data-bs-toggle="dropdown">
                         <div class="d-flex user-box align-items-center">
                             <div class="user-info">
-                                <p class="user-name mb-0">Jessica Doe</p>
+                                <p class="user-name mb-0">User</p>
                                 <p class="designation mb-0">Available</p>
                             </div>
-                            <img src="{{ url('public/template/user/assets/images/avatars/avatar-1.png') }}" class="user-img" alt="user avatar" />
+                            {{-- <img src="{{ url('public/template/user/assets/images/avatars/avatar-1.png') }}" class="user-img" alt="user avatar" /> --}}
                         </div>
                     </a>
 

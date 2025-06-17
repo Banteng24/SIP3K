@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\user;
 use App\Http\Controllers\Controller;
 use App\Models\Cuti;
+use App\Models\Sintari_pegawai;
 use Carbon\Carbon;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -128,5 +129,50 @@ class CutiController extends Controller
             'tahun' => $tahun
         ]);
     }
+
+    // Method yang diperbaiki di CutiController.php
+
+public function getPegawaiByNip($nip)
+{
+    try {
+        // Validasi format NIP
+        if (strlen($nip) < 18) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Format NIP tidak valid. NIP harus 18 digit.'
+            ], 400);
+        }
+
+        // Cari pegawai berdasarkan NIP
+        $cuti = Sintari_pegawai::where('nip', $nip)->first();
+    
+        if ($cuti) {
+            return response()->json([
+                'status' => 'success',
+                'nama' => $cuti->nama,
+                'nip' => $cuti->nip
+            ]);
+        } else {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Pegawai dengan NIP tersebut tidak ditemukan'
+            ], 404);
+        }
+    } catch (\Exception $e) {
+        return response()->json([
+            'status' => 'error',
+            'message' => 'Terjadi kesalahan sistem: ' . $e->getMessage()
+        ], 500);
+    }
+}
+
+public function detail($id)
+    {
+        $pegawai = Sintari_pegawai::findOrFail($id);
+        $cuti = Cuti::findOrFail($id);
+        return view('user.cuti.detail', compact('pegawai', 'cuti'));
+    }
+
+
 }
     

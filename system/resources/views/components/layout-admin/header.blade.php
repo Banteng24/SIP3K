@@ -16,7 +16,7 @@
                     <span class="position-absolute top-50 search-close translate-middle-y"><i class='bx bx-x'></i></span>
                 </div>
             </div>
-            <div class="top-menu ms-auto">
+            {{-- <div class="top-menu ms-auto">
                 <ul class="navbar-nav align-items-center">
                     <li class="nav-item mobile-search-icon">
                         <a class="nav-link" href="#">	<i class='bx bx-search'></i>
@@ -328,7 +328,7 @@
                         </div>
                     </li>
                 </ul>
-            </div>
+            </div> --}}
             <div class="user-box dropdown">
                 <a class="d-flex align-items-center nav-link dropdown-toggle dropdown-toggle-nocaret" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                     <img src="{{url('public/template/admin')}}/assets/images/avatars/avatar-2.png" class="user-img" alt="user avatar">
