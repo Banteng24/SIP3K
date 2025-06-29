@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\admin;
 use App\Http\Controllers\Controller;
 use App\Models\mutasi;
+use App\Models\Sintari_pegawai;
 use Illuminate\Http\Request;
 
 class MutasiController extends Controller
@@ -14,7 +15,7 @@ class MutasiController extends Controller
         
         if (!empty($search)) {
             // Search hanya berdasarkan NIP dengan exact match atau partial match
-            $mutasi = mutasi::where('nip', 'like', "%$search%")
+            $mutasi = Sintari_pegawai::where('nip', 'like', "%$search%")
                          ->orderBy('created_at', 'desc')
                          ->get();
         } else {
@@ -25,38 +26,37 @@ class MutasiController extends Controller
         return view('admin.mutasi.index', compact('mutasi'));
     }
 
-    public function create(Request $request){
-        $mutasi = new mutasi(); // sebaiknya ubah nama $mutasi jadi $mutasi untuk konsistensi
-        $mutasi->nama_pegawai = $request->nama_pegawai;
-        $mutasi->nip = $request->nip;
-        $mutasi->opd_lama = $request->opd_lama;
-        $mutasi->jabatan = $request->jabatan;
-        $mutasi->opd_baru = $request->opd_baru;
-        $mutasi->jabatan_baru = $request->jabatan_baru;
-        $mutasi->tanggal_sk = $request->tanggal_sk;
-        $mutasi->pimpinan_opd = $request->pimpinan_opd;
+    // public function create(Request $request){
+    //     $mutasi = new mutasi(); // sebaiknya ubah nama $mutasi jadi $mutasi untuk konsistensi
+    //     $mutasi->nama_pegawai = $request->nama_pegawai;
+    //     $mutasi->nip = $request->nip;
+    //     $mutasi->opd_lama = $request->opd_lama;
+    //     $mutasi->jabatan = $request->jabatan;
+    //     $mutasi->opd_baru = $request->opd_baru;
+    //     $mutasi->jabatan_baru = $request->jabatan_baru;
+    //     $mutasi->tanggal_sk = $request->tanggal_sk;
+    //     $mutasi->pimpinan_opd = $request->pimpinan_opd;
 
-        $mutasi->save(); // tambahkan ini untuk menyimpan ke database
+    //     $mutasi->save(); // tambahkan ini untuk menyimpan ke database
 
-        return redirect('admin/mutasi')->with('success','Dikirim');
-    }
-
+    //     return redirect('admin/mutasi')->with('success','Dikirim');
+    // }
     function edit($id){
-        $mutasi = mutasi::findOrFail($id);
+        $mutasi = Sintari_pegawai::findOrFail($id);
         return view('admin.mutasi.edit', compact('mutasi'));
     }
 
     public function update(Request $request, $id)
     {
-        $mutasi = Mutasi::findOrFail($id);
-        $mutasi->nama_pegawai = $request->nama_pegawai;
+        $mutasi = Sintari_pegawai::findOrFail($id);
+        $mutasi->nama = $request->nama_pegawai;
         $mutasi->nip = $request->nip;
-        $mutasi->opd_lama = $request->opd_lama;
-        $mutasi->jabatan = $request->jabatan;
-        $mutasi->opd_baru = $request->opd_baru;
-        $mutasi->jabatan_baru = $request->jabatan_baru;
-        $mutasi->tanggal_sk = $request->tanggal_sk;
-        $mutasi->pimpinan_opd = $request->pimpinan_opd;
+        $mutasi->opd = $request->opd_lama;
+        $mutasi->jabatan = $request->jabatan;   
+        $mutasi->opd = $request->opd_baru;
+        $mutasi->jabatan = $request->jabatan_baru;
+        $mutasi->pegawai_tgl_sk = $request->tanggal_sk;
+        // $mutasi->pimpinan_opd = $request->pimpinan_opd;
         $mutasi->update();
     
         return redirect('admin/mutasi')
@@ -75,7 +75,7 @@ class MutasiController extends Controller
         $search = $request->get('query');
         
         $data = mutasi::where('nip', 'like', "%$search%")
-                    ->select('nip', 'nama_pegawai')
+                    ->select('nip', 'nama')
                     ->distinct()
                     ->limit(20)
                     ->get();

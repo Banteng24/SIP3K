@@ -89,7 +89,7 @@
                 </li>
               </ul>
             </li>
-            <li class="nav-item dropdown">
+            {{-- <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle dropdown-toggle-nocaret" href="javascript:;" data-bs-toggle="dropdown">
                 <div class="parent-icon"><i class='bx bx-bookmark-heart'></i>
                 </div>
@@ -99,7 +99,7 @@
                 <li> <a class="dropdown-item" href="{{url('#')}}"><i class="bx bx-right-arrow-alt"></i>Pengguna</a>
                 </li>
               </ul>
-            </li>
+            </li> --}}
            
           </ul>
     </nav>

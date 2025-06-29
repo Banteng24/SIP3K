@@ -18,7 +18,7 @@
                             <div class="row mb-3">
                                 <label for="namaPegawai" class="col-sm-3 col-form-label">Nama Pegawai</label>
                                 <div class="col-sm-9">
-                                    <input type="text" name="nama_pegawai" value="{{ $pensiun->nama_pegawai }}" class="form-control" id="namaPegawai" placeholder="Masukkan nama pegawai" readonly>
+                                    <input type="text" name="nama_pegawai" value="{{ $pensiun->nama}}" class="form-control" id="namaPegawai" placeholder="Masukkan nama pegawai" readonly>
                                 </div>
                             </div>
         

@@ -123,7 +123,7 @@ class CutiController extends Controller
 
         $sisa_kuota = 12 - $total_cuti_tahun_ini;
 
-        return response()->json([
+        return response()->json([   
             'total_terpakai' => $total_cuti_tahun_ini,
             'sisa_kuota' => $sisa_kuota,
             'tahun' => $tahun

@@ -18,7 +18,7 @@
                             <div class="row mb-3">
                                 <label for="namaPegawai" class="col-sm-3 col-form-label">Nama Pegawai</label>
                                 <div class="col-sm-9">
-                                    <input type="text" name="nama_pegawai" value="{{ $mutasi->nama_pegawai }}" class="form-control" id="namaPegawai" placeholder="Masukkan nama pegawai" readonly>
+                                    <input type="text" name="nama_pegawai" value="{{ $mutasi->nama }}" class="form-control" id="namaPegawai" placeholder="Masukkan nama pegawai" readonly>
                                 </div>
                             </div>
         
@@ -32,7 +32,7 @@
                             <div class="row mb-3">
                                 <label for="nip" class="col-sm-3 col-form-label">Opd Lama</label>
                                 <div class="col-sm-9">
-                                    <input type="text" name="opd_lama" value="{{ $mutasi->opd_lama }}"  class="form-control" id="opdlama" placeholder="Masukkan Opd Lama" readonly>
+                                    <input type="text" name="opd_lama" value="{{ $mutasi->opd }}"  class="form-control" id="opdlama" placeholder="Masukkan Opd Lama" readonly>
                                 </div>
                             </div>
         
@@ -93,7 +93,7 @@
                                 </div>
                             </div>
         
-                            <div class="row mb-3">
+                            {{-- <div class="row mb-3">
                                 <label for="pimpinanOpd" class="col-sm-3 col-form-label">Pimpinan OPD</label>
                                 <div class="col-sm-9">
                                     <select name="pimpinan_opd" value="{{ $mutasi->pimpinan_opd }}"  class="form-control" id="pimpinanOpd" required>
@@ -102,7 +102,7 @@
                                         <option value="Tidak">Tidak</option>
                                     </select>
                                 </div>
-                            </div>
+                            </div> --}}
                             
         
                             <div class="row">

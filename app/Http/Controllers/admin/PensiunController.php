@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\admin;
 use App\Http\Controllers\Controller;
 use App\Models\pensiun;
+use App\Models\Sintari_pegawai;
 use Illuminate\Http\Request;
 class PensiunController extends Controller
 {
@@ -13,7 +14,7 @@ class PensiunController extends Controller
         
         if (!empty($search)) {
             // Search hanya berdasarkan NIP dengan exact match atau partial match
-            $pensiun = pensiun::where('nip', 'like', "%$search%")
+            $pensiun = Sintari_pegawai::where('nip', 'like', "%$search%")
                          ->orderBy('created_at', 'desc')
                          ->get();
         } else {
@@ -25,14 +26,14 @@ class PensiunController extends Controller
     }
 
     function edit($id){
-        $pensiun = pensiun::findOrFail($id);
+        $pensiun = Sintari_pegawai::findOrFail($id);
         return view('admin.pensiun.edit', compact('pensiun'));
     }
 
     public function submit(Request $request, $id)
     {
-        $pensiun = pensiun::findOrFail($id);
-        $pensiun->nama_pegawai = $request->nama_pegawai;
+        $pensiun = Sintari_pegawai::findOrFail($id);
+        $pensiun->nama = $request->nama_pegawai;
         $pensiun->nip = $request->nip;
         $pensiun->jabatan = $request->jabatan;
         $pensiun->opd = $request->opd;
@@ -42,5 +43,5 @@ class PensiunController extends Controller
         return redirect('admin/pensiun')
             ->with('success', 'Status Pensiun Berhasil Diubah ' . $pensiun->nama_pegawai . '! 📄✅');
     }
-
+ 
 }

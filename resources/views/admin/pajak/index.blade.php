@@ -60,13 +60,14 @@
                           <th>Status Upload</th>
                           {{-- <th>File Pendukung</th> --}}
                           <th>File Pendukung</th>
+                          <th>Aksi</th>
                       </tr>
                   </thead>
                   <tbody>
-                      @forelse ($data as $index => $data)
+                      @forelse ($datas as $index => $data)
                           <tr>
                               <td>{{ $index + 1 }}</td>
-                              <td>{{ $data->nama_pegawai }}</td>
+                              <td>{{ $data->nama }}</td>
                               <td><span class="badge bg-primary">{{ $data->nip }}</span></td>
                               <td>{{ $data->opd }}</td>
                               <td>
@@ -91,6 +92,25 @@
                                       <span class="text-muted">Tidak Ada</span>
                                   @endif
                               </td>
+                              <td>
+                                <div class="d-flex justify-content-center gap-1">
+                                    <a href="{{ url('admin/pajak/detail', $data->id) }}" 
+                                        class="btn btn-sm btn-info">
+                                        <i class="fas fa-eye"></i> Lihat Detail
+                                    </a>
+                                    {{-- <form action="{{ url('user/pajak/delete', $data->id) }}" 
+                                          method="POST" 
+                                          style="display: inline;">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" 
+                                                class="btn btn-danger btn-sm"
+                                                onclick="return confirm('Apakah Anda yakin ingin menghapus data pegawai {{ $data->nama_pegawai }} (NIP: {{ $data->nip }})?')">
+                                            <i class="fas fa-trash-alt"></i> Hapus
+                                        </button>
+                                    </form> --}}
+                                </div>
+                            </td>
                               {{-- <td>
                                   <div class="d-flex justify-content-center gap-1">
                                       <a href="{{ url('/pajak/edit', $data->id) }}" 

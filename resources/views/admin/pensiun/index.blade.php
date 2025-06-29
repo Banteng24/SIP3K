@@ -34,7 +34,7 @@
                                  class="form-control" 
                                  placeholder="Masukkan NIP pegawai (contoh: 198512252010012012)" 
                                  value="{{ request('search') }}"
-                                 pattern="[0-9]{19}"
+                                 {{-- pattern="[0-9]{19}" --}}
                                  title="NIP harus 18 digit angka"
                                  autocomplete="off">
                           <div id="autocompleteResults" class="autocomplete-results"></div>
@@ -79,7 +79,7 @@
                       @forelse ($pensiun as $index => $data)
                           <tr>
                               <td>{{ $index + 1 }}</td>
-                              <td>{{ $data->nama_pegawai }}</td>
+                              <td>{{ $data->nama }}</td>
                               <td><span class="badge bg-primary">{{ $data->nip }}</span></td>
                               <td>{{ $data->jabatan }}</td>
                               <td>{{ $data->opd }}</td>

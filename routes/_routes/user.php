@@ -31,6 +31,7 @@ Route::prefix('pajak')->controller(PajakController::class)->group(function () {
     Route::get('delete/{id}', 'delete');    // Proses form delete pegawai pajak
     Route::get('cari', 'cari');
     Route::get('autocomplete', 'autocomplete');
+    Route::get('detail/{nip}', 'detail');
 
 
 

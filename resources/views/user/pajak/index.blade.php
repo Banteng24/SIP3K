@@ -78,7 +78,7 @@
                         @forelse ($pajak as $index => $data)
                             <tr>
                                 <td>{{ $index + 1 }}</td>
-                                <td>{{ $data->nama_pegawai }}</td>
+                                <td>{{ $data->nama }}</td>
                                 <td><span class="badge bg-primary">{{ $data->nip }}</span></td>
                                 <td>{{ $data->opd }}</td>
                                 <td>
@@ -93,15 +93,24 @@
                                     @endif
                                 </td>
                                 <td>
-                                    @if($data->file)
-                                        <a href="{{ url('system/public/uploads', $data->file) }}" 
-                                           target="_blank" 
-                                           class="btn btn-sm btn-info">
-                                            <i class="fas fa-eye"></i> Lihat File
+                                    <div class="d-flex justify-content-center gap-1">
+                                      
+                                        <a href="{{ url('user/pajak/detail', $data->id) }}" 
+                                            class="btn btn-sm btn-info">
+                                            <i class="fas fa-eye"></i> Show
                                         </a>
-                                    @else
-                                        <span class="text-muted">Tidak Ada</span>
-                                    @endif
+                                        {{-- <form action="{{ url('user/pajak/delete', $data->id) }}" 
+                                              method="POST" 
+                                              style="display: inline;">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" 
+                                                    class="btn btn-danger btn-sm"
+                                                    onclick="return confirm('Apakah Anda yakin ingin menghapus data pegawai {{ $data->nama_pegawai }} (NIP: {{ $data->nip }})?')">
+                                                <i class="fas fa-trash-alt"></i> Hapus
+                                            </button>
+                                        </form> --}}
+                                    </div>
                                 </td>
                                 <td>
                                     <div class="d-flex justify-content-center gap-1">
@@ -109,6 +118,7 @@
                                             class="btn btn-sm btn-info">
                                             <i class="fas fa-eye"></i> Lihat Detail
                                         </a>
+                                       
                                         {{-- <form action="{{ url('user/pajak/delete', $data->id) }}" 
                                               method="POST" 
                                               style="display: inline;">

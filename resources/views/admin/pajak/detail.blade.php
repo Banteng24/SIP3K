@@ -33,19 +33,16 @@
                         <div class="row mb-2"><label class="{{ $labelClass }}">Tanggal SK</label><div class="{{ $valueClass }}">{{ $pegawai->pegawai_tgl_sk }}</div></div>
                         <div class="row mb-2"><label class="{{ $labelClass }}">TMT Jabatan</label><div class="{{ $valueClass }}">{{ $pegawai->tmt_jabatan }}</div></div>
                         <div class="row mb-2"><label class="{{ $labelClass }}">Email</label><div class="{{ $valueClass }}">{{ $pegawai->pegawai_email }}</div></div>
-                        <div class="row mb-2"><label class="{{ $labelClass }}">Nomor Surat</label><div class="{{ $valueClass }}">{{ $cuti->nomor_surat }}</div></div>
-                        <div class="row mb-2"><label class="{{ $labelClass }}">Tanggal Surat</label><div class="{{ $valueClass }}">{{ $cuti->tanggal_surat }}</div></div>
-                        <div class="row mb-2"><label class="{{ $labelClass }}">Tanggal Mulai</label><div class="{{ $valueClass }}">{{ $cuti->tanggal_mulai }}</div></div>
-                        <div class="row mb-2"><label class="{{ $labelClass }}">Tanggal Selesai</label><div class="{{ $valueClass }}">{{ $cuti->tanggal_selesai }}</div></div>
-                        <div class="row mb-2"><label class="{{ $labelClass }}">Alasan Cuti</label><div class="{{ $valueClass }}">{{ $cuti->alasan_cuti}}</div></div>
-                        <div class="row mb-2"><label class="{{ $labelClass }}">Jumlah Hari</label><div class="{{ $valueClass }}">{{ $cuti->jumlah_hari }}</div></div>
-                        <div class="row mb-3">
+                        <div class="row mb-2"><label class="{{ $labelClass }}">No HP</label><div class="{{ $valueClass }}">{{ $pegawai->pegawai_no_sk }}</div></div>    
+                        <div class="row mb-2"><label class="{{ $labelClass }}">Ajukan Cuti?</label><div class="{{ $valueClass }}">{{ $pegawai->pegawai_cuti ? 'Ya' : 'Tidak' }}</div></div>
+                        <div class="row mb-2"><label class="{{ $labelClass }}">Penilaian SKP</label><div class="{{ $valueClass }}">{{ $pegawai->pegawai_skp ? 'Ya' : 'Tidak' }}</div></div>
+                    
                             <label class="{{ $labelClass }}">File Pendukung</label>
                             <div class="{{ $valueClass }}">
-                                @if($cuti->file_pendukung)
+                                @if($pegawai->file)
                                     <div class="border rounded p-2" style="max-width: 500px">
-                                        <img src="{{ url('system/public/uploads/' . $cuti->file_pendukung) }}" class="img-fluid rounded mb-2" alt="File Pendukung">
-                                        <a href="{{ url('system/public/uploads/' . $cuti->file_pendukung) }}" download class="btn btn-sm btn-outline-primary">
+                                        <img src="{{ url('system/public/uploads/' . $pegawai->file) }}" class="img-fluid rounded mb-2" alt="File Pendukung">
+                                        <a href="{{ url('system/public/uploads/' . $pegawai->file) }}" download class="btn btn-sm btn-outline-primary">
                                             Download File
                                         </a>
                                     </div>

@@ -54,7 +54,7 @@
                                 <div class="col-sm-9 pt-2">
                                     <input type="text" 
                                            class="form-control-plaintext bg-light ps-2" 
-                                           value="{{ $pajak->nama_pegawai }}" 
+                                           value="{{ $pajak->nama }}" 
                                            readonly>
                                 </div>
                             </div>

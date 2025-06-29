@@ -33,8 +33,8 @@
                                    class="form-control" 
                                    placeholder="Masukkan NIP pegawai (contoh: 198512252010012012)" 
                                    value="{{ request('search') }}"
-                                   pattern="[0-9]{19}"
-                                   title="NIP harus 18 digit angka"
+                                   {{-- pattern="[0-9]{19}"
+                                   title="NIP harus 18 digit angka" --}}
                                    autocomplete="off">
                             <div id="autocompleteResults" class="autocomplete-results"></div>
                         </div>
@@ -66,12 +66,12 @@
                             <th>No</th>
                             <th>Nama Pegawai</th>
                             <th>NIP</th>
-                            <th>OPD Lama</th>
-                            <th>Jabatan Lama</th>
+                            {{-- <th>OPD Lama</th> --}}
+                            {{-- <th>Jabatan Lama</th> --}}
                             <th>OPD Baru</th>
                             <th>Jabatan Baru</th>
                             <th>Tanggal SK</th>
-                            <th>Pimpinan OPD</th>
+                            {{-- <th>Pimpinan OPD</th> --}}
                             <th>Status</th>
                             <th>Aksi</th>
                         </tr>
@@ -80,16 +80,16 @@
                         @forelse ($mutasi as $no => $data)
                             <tr>
                                 <td>{{ $no + 1 }}</td>
-                                <td>{{ $data->nama_pegawai }}</td>
+                                <td>{{ $data->nama}}</td>
                                 <td><span class="badge bg-primary">{{ $data->nip }}</span></td>
-                                <td>{{ $data->opd_lama }}</td>
+                                {{-- <td>{{ $data->opd }}</td> --}}
+                                {{-- <td>{{ $data->jabatan }}</td> --}}
+                                <td>{{ $data->opd }}</td>
                                 <td>{{ $data->jabatan }}</td>
-                                <td>{{ $data->opd_baru }}</td>
-                                <td>{{ $data->jabatan_baru }}</td>
-                                <td>{{ $data->tanggal_sk }}</td>
-                                <td>{{ $data->pimpinan_opd }}</td>
+                                <td>{{ $data->pegawai_tgl_sk }}</td>
+                                {{-- <td>{{ $data->pimpinan_opd }}</td> --}}
                                 <td>
-                                    @if($data->pimpinan_opd)
+                                    @if($data->pegawai_tgl_sk)
                                         <span class="badge bg-success">
                                             <i class="fas fa-check"></i> Berhasil
                                         </span>

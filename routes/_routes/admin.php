@@ -47,13 +47,15 @@ Route::prefix('pensiun')->controller(PensiunController::class)->group(function (
 });
 Route::prefix('pajak')->controller(PajakController::class)->group(function () {
     Route::get('/', 'index');
+    Route::get('detail/{nip}', 'detail');
 
 });
 Route::prefix('akun-baru')->controller(AkunbaruController::class)->group(function () {
     Route::get('/', 'index');
     Route::get('tambah', 'tambah');
-    Route::get('create', 'create');
-    Route::post('submit', 'submit');
+    Route::get('edit/{id}', 'edit');
+    Route::post('submit/{id}', 'submit');
+    Route::get('pegawai/{nip}', 'getPegawaiByNip');
 
 });
 Route::prefix('cuti')->controller(CutiController::class)->group(function () {

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\user;
 
 use App\Http\Controllers\Controller;
 use App\Models\Pajak;
+use App\Models\Sintari_pegawai;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -16,7 +17,7 @@ class PajakController extends Controller
         
         if (!empty($search)) {
             // Search hanya berdasarkan NIP dengan exact match atau partial match
-            $pajak = Pajak::where('nip', 'like', "%$search%")
+            $pajak = Sintari_pegawai::where('nip', 'like', "%$search%")
                          ->orderBy('created_at', 'desc')
                          ->get();
         } else {
@@ -27,21 +28,21 @@ class PajakController extends Controller
         return view('user.pajak.index', compact('pajak'));
     }
 
-    public function create(Request $request)
-    {
-        $pajak = new Pajak();
-        $pajak->nama_pegawai = $request->nama;
-        $pajak->nip = $request->nip;
-        $pajak->opd = $request->opd;
+    // public function create(Request $request)
+    // {
+    //     $pajak = new Sintari_pegawai();
+    //     $pajak->nama_pegawai = $request->nama;
+    //     $pajak->nip = $request->nip;
+    //     $pajak->opd = $request->opd;
 
-        $pajak->save();
+    //     $pajak->save();
 
-        return redirect('user/pajak')->with('success', 'Data berhasil ditambahkan');
-    }
+    //     return redirect('user/pajak')->with('success', 'Data berhasil ditambahkan');
+    // }
 
     public function edit($id)
     {
-        $pajak = Pajak::findOrFail($id);
+        $pajak = Sintari_pegawai::findOrFail($id);
         return view('user.pajak.edit', compact('pajak'));
     }
 
@@ -58,10 +59,10 @@ class PajakController extends Controller
            ]);
    
            // Cari data pajak berdasarkan ID
-           $pajak = Pajak::findOrFail($id);
+           $pajak = Sintari_pegawai::findOrFail($id);
            
            // Simpan nama pegawai untuk pesan notifikasi
-           $namaPegawai = $pajak->nama_pegawai;
+           $namaPegawai = $pajak->nama;
            
            // Proses upload file jika ada file yang diupload
            if ($request->hasFile('file')) {
@@ -105,18 +106,18 @@ class PajakController extends Controller
        }
    }
 
-    public function delete($id)
-    {
-        $pajak = Pajak::findOrFail($id);
+    // public function delete($id)
+    // {
+    //     $pajak = Pajak::findOrFail($id);
         
-        // Hapus file jika ada
-        if ($pajak->file && file_exists(public_path('uploads/' . $pajak->file))) {
-            unlink(public_path('uploads/' . $pajak->file));
-        }
+    //     // Hapus file jika ada
+    //     if ($pajak->file && file_exists(public_path('uploads/' . $pajak->file))) {
+    //         unlink(public_path('uploads/' . $pajak->file));
+    //     }
         
-        $pajak->delete();
-        return redirect('user/pajak')->with('success', 'Data berhasil dihapus');
-    }
+    //     $pajak->delete();
+    //     return redirect('user/pajak')->with('success', 'Data berhasil dihapus');
+    // }
 
     public function cari(Request $request)
     {
@@ -136,5 +137,11 @@ class PajakController extends Controller
                     ->get();
         
         return response()->json($data);
+    }
+
+    public function detail($id)
+    {
+        $pegawai = Sintari_pegawai::findOrFail($id);
+        return view('user.pajak.detail', compact('pegawai',));
     }
 }

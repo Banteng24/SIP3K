@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use Faker\Factory as Faker;
 use App\Models\Sintari_pegawai;
+use Carbon\Carbon;
 
 class Sintari_pegawaiSeeder extends Seeder
 {
@@ -28,7 +29,7 @@ class Sintari_pegawaiSeeder extends Seeder
         $usedNames = [];
 
         for ($i = 0; $i < 50; $i++) {
-            // Buat nama unik
+            // Nama unik
             do {
                 $nama = $faker->name;
             } while (in_array($nama, $usedNames));
@@ -42,15 +43,16 @@ class Sintari_pegawaiSeeder extends Seeder
             $tglLahir = $faker->dateTimeBetween('-50 years', '-30 years');
             $tglPengangkatan = $faker->dateTimeBetween('-25 years', '-5 years');
 
-            // Format NIP:
-            // YYYYMMDD (tgl lahir) + YYYYMM (tgl pengangkatan) + 1 (jenis kelamin) + 3 digit urut
+            // Format NIP
             $nip = $tglLahir->format('Ymd') .
                    $tglPengangkatan->format('Ym') .
                    ($gender === 'male' ? '1' : '2') .
-                   str_pad(($i + 1), 3, '0', STR_PAD_LEFT); // urutan ke-001 dst
+                   str_pad(($i + 1), 3, '0', STR_PAD_LEFT);
 
-            // Pastikan 18 digit
             $nip = substr($nip, 0, 18);
+
+            // TMT pensiun = tanggal lahir + 58 tahun
+            // $tmtPensiun = Carbon::instance($tglLahir)->addYears(58)->toDateString();
 
             Sintari_pegawai::create([
                 'nama' => $nama,
@@ -68,16 +70,25 @@ class Sintari_pegawaiSeeder extends Seeder
                 ]),
                 'tahun_lulus' => $faker->year(),
                 'tempat_lahir' => $faker->city,
+                'tanggal_lahir' => $tglLahir->format('Y-m-d'), // Tambahan
                 'pegawai_tgl_pelantikan' => $faker->date(),
                 'pegawai_tgl_sk' => $faker->date(),
                 'tmt_jabatan' => $faker->date(),
+                // 'tmt_pensiun' => $tmtPensiun, // Tambahan
                 'pegawai_no_sk' => $faker->bothify('SK-####/XX/##'),
                 'pegawai_email' => $faker->unique()->safeEmail,
-                'pegawai_wa' => $faker->numerify('08##########'),
-                'pegawai_gambar' => 'https://via.placeholder.com/200?text=Foto',
-                'pegawai_cuti' => $faker->boolean(70),
-                'pegawai_skp' => $faker->boolean(90),
-            ]);
+                // 'pegawai_wa' => $faker->numerify('08##########'),
+                // 'pegawai_gambar' => 'https://via.placeholder.com/200?text=Foto',
+                // 'pegawai_cuti' => $faker->boolean(70),
+                // 'pegawai_skp' => $faker->boolean(90),
+                // ✅ Tambahan:
+    'tgl_sk_pengangkatan' => $faker->dateTimeBetween('-25 years', '-5 years')->format('Y-m-d'),
+    'tgl_spmt' => $faker->dateTimeBetween('-25 years', '-5 years')->format('Y-m-d'),
+    'pendidikan_terakhir' => $faker->randomElement([
+        'SMA', 'D3 Teknik Informatika', 'S1 Ilmu Pemerintahan', 'S1 Akuntansi', 'S2 Administrasi Publik'
+    ]),
+]);
+
         }
     }
 }
