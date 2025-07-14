@@ -20,12 +20,17 @@ class PensiunController extends Controller
         } else {
             // Jika tidak ada pencarian, kirim collection kosong
             $pensiun = collect();
+            $pensiun = Sintari_pegawai::get();
         }
         
         return view('admin.pensiun.index', compact('pensiun'));
     }
 
     function edit($id){
+        $pensiun = Sintari_pegawai::findOrFail($id);
+        return view('admin.pensiun.edit', compact('pensiun'));
+    }
+    function tambah($id){
         $pensiun = Sintari_pegawai::findOrFail($id);
         return view('admin.pensiun.edit', compact('pensiun'));
     }
@@ -41,7 +46,26 @@ class PensiunController extends Controller
         $pensiun->update();
     
         return redirect('admin/pensiun')
+            ->with('success', 'Status Pensiun Berhasil ditambahkan ' . $pensiun->nama_pegawai . '! 📄✅');
+    }
+    public function update(Request $request, $id)
+    {
+        $pensiun = Sintari_pegawai::findOrFail($id);
+        $pensiun->nama = $request->nama_pegawai;
+        $pensiun->nip = $request->nip;
+        $pensiun->jabatan = $request->jabatan;
+        $pensiun->opd = $request->opd;
+        $pensiun->tmt_pensiun = $request->tmt_pensiun;
+        $pensiun->update();
+    
+        return redirect('admin/pensiun')
             ->with('success', 'Status Pensiun Berhasil Diubah ' . $pensiun->nama_pegawai . '! 📄✅');
     }
+    public function show($id)
+    {
+        $pensiun = Sintari_pegawai::findOrFail($id);
+        return view('admin.pensiun.show', compact('pensiun'));
+    }
+
  
 }

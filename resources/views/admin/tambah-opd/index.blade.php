@@ -1,6 +1,18 @@
 <x-admin>
+    @if (session('success'))
+    <div class="alert alert-success">
+        {{ session('success') }}
+    </div>
+@endif
+
+@if (session('error'))
+    <div class="alert alert-danger">
+        {{ session('error') }}
+    </div>
+@endif
+
     <div class="d-flex justify-content-between align-items-center mb-2">
-        <h6 class="mb-0 text-uppercase">OPD Baru</h6>
+        <h6 class="mb-0 text-uppercase">Tambah Opd</h6>
         <a class="btn btn-success btn-sm" href="{{ url('admin/tambah-opd/create') }}">
             <i class="fas fa-user-plus"></i> Tambah OPD
         </a>
@@ -34,6 +46,10 @@
                                         onclick="confirmDelete(event, this.href)">
                                         <i class="fas fa-trash-alt"></i> Hapus
                                     </a>
+                                    <a href="{{ url('admin/tambah-opd/edit', $master->id) }}" 
+                                        class="btn btn-sm btn-warning">
+                                        <i class="fas fa-edit"></i> Ubah
+                                    </a>
                                 </td>
                             </tr>
                         @endforeach
@@ -46,9 +62,24 @@
     <script>
         function confirmDelete(event, url) {
             event.preventDefault();
-            if (confirm("Yakin ingin menghapus data ini?")) {
-                window.location.href = url;
-            }
+    
+            Swal.fire({
+                title: 'Apakah Kamu Yakin Menghapus Data Ini?',
+                text: 'Data Akan Terhapus Permanen!',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yakin',
+                cancelButtonText: 'Cancel'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = url;
+                }
+            });
         }
     </script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    
 </x-admin>

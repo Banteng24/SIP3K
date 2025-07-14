@@ -168,14 +168,14 @@
                         <div class="d-flex user-box align-items-center">
                             <div class="user-info">
                                 <p class="user-name mb-0">User</p>
-                                <p class="designation mb-0">Available</p>
+                                <p class="designation mb-0">Admin Opd</p>
                             </div>
-                            {{-- <img src="{{ url('public/template/user/assets/images/avatars/avatar-1.png') }}" class="user-img" alt="user avatar" /> --}}
+                            <img src="{{ url('public/template/user/assets/images/icons/dinas.jpeg') }}" class="user-img" alt="user avatar" />
                         </div>
                     </a>
 
                     <div class="dropdown-menu dropdown-menu-end">
-                        <a class="dropdown-item" href="javascript:;">
+                        <a class="dropdown-item" href="{{'user/profile'}}">
                             <i class="bx bx-user"></i><span>Profile</span>
                         </a>
 

@@ -15,15 +15,18 @@ use Illuminate\Support\Facades\Route;
 
 Route::controller(HomeController::class)->group(function () {
     Route::get('/', 'index');
+    Route::get('profile', 'profile');
 });
 
 Route::prefix('mutasi')->controller(MutasiController::class)->group(function () {
     Route::get('/', 'index');
-    Route::post('submit', 'create');    // Proses form tambah pegawai pajak
+    Route::post('submit/{id}', 'submit');    // Proses form tambah pegawai pajak
     Route::get('edit/{id}', 'edit');    // Proses form tambah pegawai pajak
+    Route::get('tambah/{id}', 'tambah');    // Proses form tambah pegawai pajak
     Route::post('update/{id}', 'update');    // Proses form tambah pegawai pajak
     Route::get('cari', 'cari');
     Route::get('autocomplete', 'autocomplete');
+    Route::get('show/{nip}', 'show');
 
 });
 
@@ -36,13 +39,18 @@ Route::prefix('tambah-opd')->controller(AuthController::class)->group(function (
     Route::get('create', 'create');
     Route::post('submit', 'submit');
     Route::get('delete/{id}', 'delete');    // Proses form delete pegawai pajak
+    Route::get('edit/{id}', 'edit');
+    Route::post('update/{id}', 'update');    // Proses form tambah pegawai pajak
 
 });
 
 Route::prefix('pensiun')->controller(PensiunController::class)->group(function () {
     Route::get('/', 'index');
     Route::get('edit/{id}', 'edit');
+    Route::get('tambah/{id}', 'edit');
     Route::post('submit/{id}', 'submit');
+    Route::post('update/{id}', 'submit');
+    Route::get('show/{nip}', 'show');
 
 });
 Route::prefix('pajak')->controller(PajakController::class)->group(function () {
@@ -56,11 +64,12 @@ Route::prefix('akun-baru')->controller(AkunbaruController::class)->group(functio
     Route::get('edit/{id}', 'edit');
     Route::post('submit/{id}', 'submit');
     Route::get('pegawai/{nip}', 'getPegawaiByNip');
+    Route::get('detail/{nip}', 'detail');
 
 });
 Route::prefix('cuti')->controller(CutiController::class)->group(function () {
     Route::get('/', 'index');
-    Route::get('detail/{nip}', 'detail');
+    Route::get('detail/{id}', 'detail');
 
 });
 

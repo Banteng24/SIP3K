@@ -40,14 +40,14 @@
                         <div class="row mb-2"><label class="{{ $labelClass }}">Alasan Cuti</label><div class="{{ $valueClass }}">{{ $cuti->alasan_cuti}}</div></div>
                         <div class="row mb-2"><label class="{{ $labelClass }}">Jumlah Hari</label><div class="{{ $valueClass }}">{{ $cuti->jumlah_hari }}</div></div>
                         <div class="row mb-3">
-                            <label class="{{ $labelClass }}">File Pendukung</label>
+                            {{-- <label class="{{ $labelClass }}">File Pendukung</label> --}}
                             <div class="{{ $valueClass }}">
                                 @if($cuti->file_pendukung)
-                                    <div class="border rounded p-2" style="max-width: 500px">
-                                        <img src="{{ url('system/public/uploads/' . $cuti->file_pendukung) }}" class="img-fluid rounded mb-2" alt="File Pendukung">
-                                        <a href="{{ url('system/public/uploads/' . $cuti->file_pendukung) }}" download class="btn btn-sm btn-outline-primary">
+                                    {{-- <div class="border rounded p-2" style="max-width: 500px"> --}}
+                                        {{-- <img src="{{ url('system/public/uploads/' . $cuti->file_pendukung) }}" class="img-fluid rounded mb-2" alt="File Pendukung"> --}}
+                                        {{-- <a href="{{ url('system/public/uploads/' . $cuti->file_pendukung) }}" download class="btn btn-sm btn-outline-primary">
                                             Download File
-                                        </a>
+                                        </a> --}}
                                     </div>
                                 @else
                                     <em>Belum ada foto</em>
@@ -69,20 +69,38 @@
 </x-admin>
 <style>
     @media print {
+        @page {
+            size: A4 portrait;
+            margin: 0;
+        }
+
+        html, body {
+            margin: 0 !important;
+            padding: 0 !important;
+            width: 210mm;
+            height: 297mm;
+            font-size: 12pt;
+            background: white;
+        }
+
         body * {
             visibility: hidden;
         }
+
         .card-body, .card-body * {
             visibility: visible;
         }
+
         .card-body {
             position: absolute;
-            left: 0;
             top: 0;
+            left: 0;
             width: 100%;
+            padding: 2cm;
+            box-sizing: border-box;
         }
 
-        .btn, a, nav, footer {
+        .btn, nav, footer, .no-print, a[href]:after {
             display: none !important;
         }
     }

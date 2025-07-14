@@ -32,7 +32,7 @@
                             <div class="row mb-3">
                                 <label for="nip" class="col-sm-3 col-form-label">Opd Lama</label>
                                 <div class="col-sm-9">
-                                    <input type="text" name="opd_lama" value="{{ $mutasi->opd }}"  class="form-control" id="opdlama" placeholder="Masukkan Opd Lama" readonly>
+                                    <input type="text" name="opd_lama" value="{{ $mutasi->opd_baru }}"  class="form-control" id="opdlama" placeholder="Masukkan Opd Lama" readonly>
                                 </div>
                             </div>
         
@@ -78,7 +78,6 @@
                                 </div>
                             </div>
                             
-        
                             <div class="row mb-3">
                                 <label for="jabatanBaru" class="col-sm-3 col-form-label">Jabatan Baru</label>
                                 <div class="col-sm-9">
@@ -89,7 +88,7 @@
                             <div class="row mb-3">
                                 <label for="tanggalSk" class="col-sm-3 col-form-label">Tanggal SK</label>
                                 <div class="col-sm-9">
-                                    <input type="date" name="tanggal_sk" value="{{ $mutasi->tanggal_sk }}"  class="form-control" id="tanggalSk" required>
+                                    <input type="date" name="pegawai_tgl_sk" value="{{ $mutasi->pegawai_tgl_sk }}"  class="form-control" id="tanggalSk" readonly>
                                 </div>
                             </div>
         

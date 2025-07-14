@@ -21,6 +21,8 @@ class AkunbaruController extends Controller
         } else {
             // Jika tidak ada pencarian, kirim collection kosong
             $akuns = collect();
+            $akuns = Sintari_pegawai::get();
+            // $akuns = Sintari_pegawai::all();
         }
         
         return view('admin.akun-baru.index', compact('akuns'));
@@ -48,7 +50,7 @@ class AkunbaruController extends Controller
 
         $akuns->save(); // tambahkan ini untuk menyimpan ke database
 
-        return redirect('admin/akun-baru')->with('success','Dikirim');
+        return redirect('admin/akun-baru')->with('success','Akun baru sintari berhasil ditambahkan',);
     }
 
     public function getPegawaiByNip($nip)
@@ -84,5 +86,10 @@ class AkunbaruController extends Controller
         ], 500);
     }
 }
+public function detail($id)
+    {
+        $akuns = Sintari_pegawai::findOrFail($id);
+        return view('admin.akun-baru.detail', compact('akuns'));
+    }
 
 }

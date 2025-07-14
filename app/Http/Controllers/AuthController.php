@@ -39,10 +39,30 @@ class AuthController extends Controller
 
         return redirect('admin/tambah-opd')->with('success', 'Data OPD berhasil ditambahkan.');
     }
-    function delete($id){
+    public function delete($id)
+{
+    $user = User::findOrFail($id);
+    $user->delete();
+
+    return redirect('admin/tambah-opd')->with('success', 'Data berhasil dihapus!');
+}
+
+
+function edit($id){
+    $user = User::findOrFail($id);
+    return view('admin.tambah-opd.edit', compact('user'));
+}
+
+public function update(Request $request, $id)
+    {
         $user = User::findOrFail($id);
-        $user->delete();
-        return redirect('admin/tambah-opd')->with('success', 'Data Berhasil Di Hapus');
+        $user->nama_opd = $request->nama_opd;
+        $user->email = $request->email;
+        $user->password = Hash::make($request->password);
+        $user->password_plain = $request->password; // << ini ditampilkan di view
+        $user->save();
+    
+        return redirect('admin/tambah-opd')->with('success', 'Data Opd berhasil diperbarui.');
     }
 
     
@@ -82,7 +102,7 @@ class AuthController extends Controller
             return redirect('user')->with('success', 'Login successful');
         }else{
             return back()->withErrors([
-                'email' => 'Email or password is incorrect', 
+                'email' => 'Email atau kata sandi salah', 
              ]);
         }
     }
@@ -94,5 +114,7 @@ class AuthController extends Controller
         $request->session()->regenerateToken();
         return redirect('/login');
     }
+
+    
 }
 

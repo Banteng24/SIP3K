@@ -108,24 +108,26 @@
                                   @endif
                               </td> --}}
                               <td>
-                                  <div class="d-flex justify-content-center gap-1">
-                                      <a href="{{ url('admin/pensiun/edit', $data->id) }}" 
-                                          class="btn btn-sm btn-info">
-                                          <i class="fas fa-eye"></i> Lihat Detail
-                                      </a>
-                                      {{-- <form action="{{ url('admin/pensiun/delete', $data->id) }}" 
-                                            method="POST" 
-                                            style="display: inline;">
-                                          @csrf
-                                          @method('DELETE')
-                                          <button type="submit" 
-                                                  class="btn btn-danger btn-sm"
-                                                  onclick="return confirm('Apakah Anda yakin ingin menghapus data pegawai {{ $data->nama_pegawai }} (NIP: {{ $data->nip }})?')">
-                                              <i class="fas fa-trash-alt"></i> Hapus
-                                          </button>
-                                      </form> --}}
-                                  </div>
-                              </td>
+                                <div class="d-flex justify-content-center gap-2">
+                                    @if($data->tmt_pensiun)
+                                        <a href="{{ url('admin/pensiun/edit', $data->id) }}" 
+                                           class="btn btn-sm btn-warning rounded-pill px-3">
+                                            Ubah
+                                        </a>
+                                        <a href="{{ url('admin/pensiun/show', $data->id) }}" 
+                                           class="btn btn-sm btn-secondary rounded-pill px-3">
+                                            Lihat
+                                        </a>
+                                    @else
+                                        <a href="{{ url('admin/pensiun/tambah', $data->id) }}" 
+                                           class="btn btn-sm btn-primary rounded-pill px-3">
+                                            Tambah
+                                        </a>
+                                    @endif
+                                </div>
+                            </td>
+                            
+                            
                           </tr>
                       @empty
                           <tr>

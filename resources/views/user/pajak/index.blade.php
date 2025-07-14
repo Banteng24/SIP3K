@@ -76,88 +76,49 @@
                     </thead>
                     <tbody>
                         @forelse ($pajak as $index => $data)
-                            <tr>
-                                <td>{{ $index + 1 }}</td>
-                                <td>{{ $data->nama }}</td>
-                                <td><span class="badge bg-primary">{{ $data->nip }}</span></td>
-                                <td>{{ $data->opd }}</td>
-                                <td>
-                                    @if($data->file)
-                                        <span class="badge bg-success">
-                                            <i class="fas fa-check"></i> Sudah Upload
-                                        </span>
-                                    @else
-                                        <span class="badge bg-danger">
-                                            <i class="fas fa-times"></i> Belum Upload
-                                        </span>
-                                    @endif
-                                </td>
-                                <td>
-                                    <div class="d-flex justify-content-center gap-1">
-                                      
-                                        <a href="{{ url('user/pajak/detail', $data->id) }}" 
-                                            class="btn btn-sm btn-info">
-                                            <i class="fas fa-eye"></i> Show
-                                        </a>
-                                        {{-- <form action="{{ url('user/pajak/delete', $data->id) }}" 
-                                              method="POST" 
-                                              style="display: inline;">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" 
-                                                    class="btn btn-danger btn-sm"
-                                                    onclick="return confirm('Apakah Anda yakin ingin menghapus data pegawai {{ $data->nama_pegawai }} (NIP: {{ $data->nip }})?')">
-                                                <i class="fas fa-trash-alt"></i> Hapus
-                                            </button>
-                                        </form> --}}
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="d-flex justify-content-center gap-1">
-                                        <a href="{{ url('user/pajak/edit', $data->id) }}" 
-                                            class="btn btn-sm btn-info">
-                                            <i class="fas fa-eye"></i> Lihat Detail
-                                        </a>
-                                       
-                                        {{-- <form action="{{ url('user/pajak/delete', $data->id) }}" 
-                                              method="POST" 
-                                              style="display: inline;">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" 
-                                                    class="btn btn-danger btn-sm"
-                                                    onclick="return confirm('Apakah Anda yakin ingin menghapus data pegawai {{ $data->nama_pegawai }} (NIP: {{ $data->nip }})?')">
-                                                <i class="fas fa-trash-alt"></i> Hapus
-                                            </button>
-                                        </form> --}}
-                                    </div>
-                                </td>
-                            </tr>
-                        @empty
-                            <tr>
-                                <td colspan="7" class="text-center py-5">
-                                    @if(request('search'))
-                                        <div class="text-muted">
-                                            <i class="fas fa-search fa-3x mb-3 text-secondary"></i>
-                                            <h5>Data Tidak Ditemukan</h5>
-                                            <p class="mb-2">Tidak ada pegawai dengan NIP "{{ request('search') }}"</p>
-                                            <small class="text-muted">Pastikan NIP yang dimasukkan benar (18 digit angka)</small>
-                                            <br>
-                                            <a href="{{ url('user/pajak') }}" class="btn btn-secondary mt-2">
-                                                <i class="fas fa-arrow-left"></i> Tampilkan Semua Data
-                                            </a>
-                                        </div>
-                                    @else
-                                        <div class="text-muted">
-                                            <i class="fas fa-info-circle fa-3x mb-3 text-secondary"></i>
-                                            <h5>Gunakan Pencarian NIP</h5>
-                                            <p class="mb-2">Masukkan NIP pada form pencarian di atas untuk melihat data pajak</p>
-                                            <small class="text-muted">Format NIP: 18 digit angka (contoh: 198512252010012012)</small>
-                                        </div>
-                                    @endif
-                                </td>  
-                            </tr>
-                        @endforelse
+<tr>
+    <td>{{ $index + 1 }}</td>
+    <td>{{ $data->nama }}</td>
+    <td><span class="badge bg-primary">{{ $data->nip }}</span></td>
+    <td>{{ $data->opd }}</td>
+    <td>
+        @if($data->file)
+            <span class="badge bg-success">
+                <i class="fas fa-check"></i> Sudah Upload
+            </span>
+        @else
+            <span class="badge bg-danger">
+                <i class="fas fa-times"></i> Belum Upload
+            </span>
+        @endif
+    </td>
+    <td>
+        @if($data->file)
+            <a href="{{ asset('system/public/uploads/' . $data->file) }}" class="btn btn-sm btn-outline-secondary" target="_blank">
+                <i class="fas fa-file-alt"></i> Lihat File
+            </a>
+        @else
+            <span class="text-muted">Tidak Ada</span>
+        @endif
+    </td>
+    <td>
+        <div class="d-flex justify-content-center gap-2">
+            <a href="{{ url('user/pajak/detail', $data->id) }}" 
+               class="btn btn-sm btn-outline-info" title="Lihat Detail">
+                <i class="fas fa-eye"></i> Lihat
+            </a>
+
+            <a href="{{ url('user/pajak/edit', $data->id) }}" 
+               class="btn btn-sm btn-outline-warning" title="{{ $data->file ? 'Ubah Data' : 'Upload Data' }}">
+                <i class="fas fa-edit"></i> {{ $data->file ? 'Ubah' : 'Upload' }}
+            </a>
+        </div>
+    </td>
+</tr>
+@empty
+<!-- Tidak perlu diubah bagian ini -->
+@endforelse
+
                     </tbody>
                 </table>
             </div>

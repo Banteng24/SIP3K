@@ -30,7 +30,26 @@ class CutiController extends Controller
             'alasan_cuti' => 'required',
             'jumlah_hari' => 'required|integer|min:1',
             'file_pendukung' => 'nullable|file|mimes:pdf,doc,docx,jpg,jpeg,png|max:2048'
+        ], [
+            'nip.required' => 'NIP wajib diisi.',
+            'nama_pegawai.required' => 'Nama pegawai wajib diisi.',
+            'nomor_surat.required' => 'Nomor surat wajib diisi.',
+            'tanggal_surat.required' => 'Tanggal surat wajib diisi.',
+            'tanggal_surat.date' => 'Tanggal surat tidak valid.',
+            'tanggal_mulai.required' => 'Tanggal mulai cuti wajib diisi.',
+            'tanggal_mulai.date' => 'Tanggal mulai cuti tidak valid.',
+            'tanggal_selesai.required' => 'Tanggal selesai cuti wajib diisi.',
+            'tanggal_selesai.date' => 'Tanggal selesai cuti tidak valid.',
+            'tanggal_selesai.after_or_equal' => 'Tanggal selesai tidak boleh lebih awal dari tanggal mulai.',
+            'alasan_cuti.required' => 'Alasan cuti wajib dipilih.',
+            'jumlah_hari.required' => 'Jumlah hari cuti wajib diisi.',
+            'jumlah_hari.integer' => 'Jumlah hari cuti harus berupa angka.',
+            'jumlah_hari.min' => 'Jumlah hari cuti minimal 1 hari.',
+            'file_pendukung.file' => 'File pendukung harus berupa file.',
+            'file_pendukung.mimes' => 'Format file harus PDF, DOC, DOCX, JPG, JPEG, atau PNG.',
+            'file_pendukung.max' => 'Ukuran file pendukung maksimal 2MB.',
         ]);
+        
 
         // Hitung jumlah hari cuti berdasarkan tanggal
         $tanggal_mulai = Carbon::parse($request->tanggal_mulai);
@@ -105,6 +124,7 @@ class CutiController extends Controller
         }
 
         $cuti->save();
+        
 
         return redirect()->to('user/cuti')->with('success', 'Pengajuan cuti berhasil disimpan.');
     }
@@ -166,13 +186,44 @@ public function getPegawaiByNip($nip)
     }
 }
 
-public function detail($id)
+    public function detail($id)
     {
         $pegawai = Sintari_pegawai::findOrFail($id);
         $cuti = Cuti::findOrFail($id);
         return view('user.cuti.detail', compact('pegawai', 'cuti'));
     }
 
+    public function edit($id)
+    {
+        $cuti = Cuti::findOrFail($id);
+        return view('user.cuti.edit', compact('cuti'));
+    }
 
+    public function update(Request $request, $id)
+    {
+        $cuti = Cuti::findOrFail($id);
+        $cuti->nip = $request->nip;
+        $cuti->nama_pegawai = $request->nama_pegawai;
+        $cuti->nomor_surat = $request->nomor_surat;
+        $cuti->tanggal_surat = $request->tanggal_surat;
+        $cuti->tanggal_mulai = $request->tanggal_mulai;
+        $cuti->tanggal_selesai = $request->tanggal_selesai;
+        $cuti->alasan_cuti = $request->alasan_cuti;
+        $cuti->jumlah_hari = $request->jumlah_hari;
+    
+        if ($request->hasFile('file_pendukung')) {
+            $file = $request->file('file_pendukung');
+            $filename = time() . '_' . $file->getClientOriginalName();
+            $file->move(public_path('uploads'), $filename);
+            $cuti->file_pendukung = $filename;
+        }
+    
+        $cuti->save();
+    
+        return redirect('user/cuti')->with('success', 'Data cuti berhasil diperbarui.');
+    }
+    
+
+    
 }
     

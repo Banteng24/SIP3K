@@ -43,6 +43,13 @@
                 <td>{{ $data->alasan_cuti }}</td>
                 <td>{{ $data->jumlah_hari }}</td>
                 <td>
+                  @if (!empty($data->file_pendukung))
+                    <span class="badge bg-primary">Terkirim</span>
+                  @else
+                    <span class="badge bg-danger">Belum</span>
+                  @endif
+                </td>
+                <td>
                   @if ($data->file_pendukung)
                     <a href="{{ url('system/public/uploads/' . $data->file_pendukung) }}" 
                        target="_blank" 
@@ -51,13 +58,6 @@
                     </a>
                   @else
                     <span class="text-muted">Tidak Ada</span>
-                  @endif
-                </td>
-                <td>
-                  @if (!empty($data->file_pendukung))
-                    <span class="badge bg-primary">Terkirim</span>
-                  @else
-                    <span class="badge bg-danger">Belum</span>
                   @endif
                 </td>
                 <td>

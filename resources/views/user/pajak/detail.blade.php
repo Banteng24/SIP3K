@@ -48,7 +48,7 @@
                             <div class="{{ $valueClass }}">
                                 @if($pegawai->file)
                                     <div class="border rounded p-2" style="max-width: 500px">
-                                        <img src="{{ url('system/public/uploads/' . $pegawai->file) }}" class="img-fluid rounded mb-2" alt="File Pendukung">
+                                        {{-- <img src="{{ url('system/public/uploads/' . $pegawai->file) }}" class="img-fluid rounded mb-2" alt="File Pendukung"> --}}
                                         <a href="{{ url('system/public/uploads/' . $pegawai->file) }}" download class="btn btn-sm btn-outline-primary">
                                             Download File
                                         </a>

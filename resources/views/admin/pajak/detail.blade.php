@@ -34,14 +34,14 @@
                         <div class="row mb-2"><label class="{{ $labelClass }}">TMT Jabatan</label><div class="{{ $valueClass }}">{{ $pegawai->tmt_jabatan }}</div></div>
                         <div class="row mb-2"><label class="{{ $labelClass }}">Email</label><div class="{{ $valueClass }}">{{ $pegawai->pegawai_email }}</div></div>
                         <div class="row mb-2"><label class="{{ $labelClass }}">No HP</label><div class="{{ $valueClass }}">{{ $pegawai->pegawai_no_sk }}</div></div>    
-                        <div class="row mb-2"><label class="{{ $labelClass }}">Ajukan Cuti?</label><div class="{{ $valueClass }}">{{ $pegawai->pegawai_cuti ? 'Ya' : 'Tidak' }}</div></div>
+                        {{-- <div class="row mb-2"><label class="{{ $labelClass }}">Ajukan Cuti?</label><div class="{{ $valueClass }}">{{ $pegawai->pegawai_cuti ? 'Ya' : 'Tidak' }}</div></div>
                         <div class="row mb-2"><label class="{{ $labelClass }}">Penilaian SKP</label><div class="{{ $valueClass }}">{{ $pegawai->pegawai_skp ? 'Ya' : 'Tidak' }}</div></div>
-                    
+                     --}}
                             <label class="{{ $labelClass }}">File Pendukung</label>
                             <div class="{{ $valueClass }}">
                                 @if($pegawai->file)
                                     <div class="border rounded p-2" style="max-width: 500px">
-                                        <img src="{{ url('system/public/uploads/' . $pegawai->file) }}" class="img-fluid rounded mb-2" alt="File Pendukung">
+                                        {{-- <img src="{{ url('system/public/uploads/' . $pegawai->file) }}" class="img-fluid rounded mb-2" alt="File Pendukung"> --}}
                                         <a href="{{ url('system/public/uploads/' . $pegawai->file) }}" download class="btn btn-sm btn-outline-primary">
                                             Download File
                                         </a>

@@ -1,4 +1,11 @@
 <x-app>
+	@if (session('success'))
+	<div class="alert alert-success alert-dismissible fade show mt-3" role="alert">
+		{{ session('success') }}
+		<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+	</div>
+@endif
+
 	<!--breadcrumb-->
 	<div class="page-breadcrumb d-none d-md-flex align-items-center mb-3">
 	  <div class="breadcrumb-title pe-3">Dashboard</div>
@@ -20,8 +27,8 @@
 		  <div class="card-body p-4">
 			<div class="row align-items-center">
 			  <div class="col-md-8">
-				<h4 class="mb-2">Selamat Datang, <span class="text-primary">{{ Auth::user()->name ?? 'User' }}</span>! 👋</h4>
-				<p class="text-muted mb-3">Berikut ini ringkasan aktivitas Anda di sistem Pajak & Cuti.</p>
+				<h4 class="mb-2">Selamat Datang, <span class="text-primary">{{ Auth::user()->name ?? 'Admin Opd' }}</span>! 👋</h4>
+				{{-- <p class="text-muted mb-3">Berikut ini ringkasan aktivitas Anda di sistem Pajak & Cuti.</p> --}}
 				<div class="d-flex align-items-center">
 				  <div class="me-4">
 					<small class="text-muted d-block">Terakhir Login</small>

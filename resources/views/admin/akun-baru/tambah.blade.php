@@ -1,7 +1,7 @@
 <x-admin>
     <div class="row">
         <div class="col-xl-9 mx-auto">
-            <h6 class="mb-0 text-uppercase">Tambah Akun</h6>
+            <h6 class="mb-0 text-uppercase">Tambah Akun sintari</h6>
             <form action="{{ url('admin/akun-baru/submit', $akuns->id) }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <hr/>
@@ -18,7 +18,15 @@
                             <div class="row mb-3">
                                 <label for="username" class="col-sm-3 col-form-label">Username</label>
                                 <div class="col-sm-9">
-                                    <input type="text" name="username" value="{{ $akuns->username }}" class="form-control" id="username" placeholder="Masukkan username" required>
+                                    <input type="text" 
+                                    name="username" 
+                                    value="{{ $akuns->username }}" 
+                                    class="form-control" 
+                                    id="username" 
+                                    placeholder="Masukkan username" 
+                                    required 
+                                    oninvalid="this.setCustomValidity('Username wajib diisi!')" 
+                                    oninput="this.setCustomValidity('')">
                                 </div>
                             </div>
             
@@ -96,7 +104,8 @@
                                 <label for="password" class="col-sm-3 col-form-label">Password</label>
                                 <div class="col-sm-9">
                                     <div class="input-group">
-                                        <input type="password" name="password" value="{{ $akuns->password }}" class="form-control" id="password" placeholder="Masukkan password" required>
+                                        <input type="password" name="password" value="{{ $akuns->password }}" class="form-control" id="password" placeholder="Masukkan password" required  oninvalid="this.setCustomValidity('password wajib diisi!')" 
+                                        oninput="this.setCustomValidity('')">
                                         <button type="button" class="btn btn-outline-secondary" onclick="togglePassword()">
                                             <i id="toggleIcon" class="bx bx-show"></i>
                                         </button>
@@ -383,3 +392,5 @@ if (isPassword) {
 }
 };
 </script>
+
+

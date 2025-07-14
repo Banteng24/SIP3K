@@ -129,7 +129,7 @@
                   <div class="col-sm-9">
                     <input type="file" class="form-control @error('file_pendukung') is-invalid @enderror" 
                           id="file_pendukung" name="file_pendukung" accept=".pdf,.doc,.docx,.jpg,.jpeg,.png" required>
-                    <small class="text-muted">Format: PDF, DOC, DOCX, JPG, JPEG, PNG (Max: 2MB)</small>
+                    <small class="text-muted">Format: PDF (Max: 2MB)</small>
                     @error('file_pendukung')
                       <div class="invalid-feedback">{{ $message }}</div>
                     @enderror

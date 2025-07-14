@@ -1,7 +1,7 @@
 <x-admin>
     <div class="row">
         <div class="col-xl-9 mx-auto">
-            <h6 class="mb-0 text-uppercase">Tambah pensiun</h6>
+            <h6 class="mb-0 text-uppercase">Tambah update</h6>
             <form action="{{ url('admin/pensiun/submit', $pensiun->id) }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <hr/>
@@ -46,7 +46,16 @@
                             <div class="row mb-3">
                                 <label for="tanggalSk" class="col-sm-3 col-form-label">Tmt Pensiun</label>
                                 <div class="col-sm-9">
-                                    <input type="date" name="tmt_pensiun" value="{{ $pensiun->tmt_pensiun }}"  class="form-control" id="tanggalSk" required>
+                                    <input
+                                    type="date"
+                                    name="tmt_pensiun"
+                                    value="{{ $pensiun->tmt_pensiun }}"
+                                    class="form-control"
+                                    id="tanggalSk"
+                                    required
+                                    oninvalid="this.setCustomValidity('Tanggal pensiun wajib diisi.')"
+                                    oninput="this.setCustomValidity('')">
+                                
                                 </div>
                             </div>
         

@@ -19,6 +19,7 @@
             $table->string('gol')->nullable(); // Golongan
             $table->date('tmt_gol')->nullable(); // TMT golongan
             $table->string('opd')->nullable(); // Instansi
+            $table->string('opd_baru')->nullable(); // Instansi
             $table->string('status')->nullable(); // PNS / PPPK / Honorer
             $table->string('jenis_jabatan')->nullable(); // Struktural / Fungsional
             $table->string('tingkat_pendidikan')->nullable();

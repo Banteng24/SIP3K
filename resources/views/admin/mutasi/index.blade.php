@@ -84,12 +84,13 @@
                                 <td><span class="badge bg-primary">{{ $data->nip }}</span></td>
                                 {{-- <td>{{ $data->opd }}</td> --}}
                                 {{-- <td>{{ $data->jabatan }}</td> --}}
-                                <td>{{ $data->opd }}</td>
+                                {{-- <td>{{ $data->opd_baru }}</td> --}}
+                                <td>{{ $data->opd_baru }}</td>
                                 <td>{{ $data->jabatan }}</td>
                                 <td>{{ $data->pegawai_tgl_sk }}</td>
                                 {{-- <td>{{ $data->pimpinan_opd }}</td> --}}
                                 <td>
-                                    @if($data->pegawai_tgl_sk)
+                                    @if($data->opd_baru)
                                         <span class="badge bg-success">
                                             <i class="fas fa-check"></i> Berhasil
                                         </span>
@@ -99,28 +100,26 @@
                                         </span>
                                     @endif
                                 </td>
-
                                 <td>
                                     <div class="d-flex justify-content-center gap-1">
-                                        <a href="{{ url('admin/mutasi/edit', $data->id) }}" 
-                                           class="btn btn-sm btn-info">
-                                            <i class="fas fa-eye"></i> Lihat Detail
-                                        </a>
-                                        {{-- 
-                                        <form action="{{ url('admin/pajak/delete', $data->id) }}" 
-                                              method="POST" 
-                                              style="display: inline;">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" 
-                                                    class="btn btn-danger btn-sm"
-                                                    onclick="return confirm('Apakah Anda yakin ingin menghapus data pegawai {{ $data->nama_pegawai }} (NIP: {{ $data->nip }})?')">
-                                                <i class="fas fa-trash-alt"></i> Hapus
-                                            </button>
-                                        </form> 
-                                        --}}
+                                        @if($data->opd_baru)
+                                            <a href="{{ url('admin/mutasi/edit', $data->id) }}" 
+                                                class="btn btn-sm btn-warning">
+                                                <i class="fas fa-edit"></i> Ubah
+                                            </a>
+                                            <a href="{{ url('admin/mutasi/show', $data->id) }}" 
+                                                class="btn btn-sm btn-secondary">
+                                                <i class="fas fa-eye"></i> Lihat
+                                            </a>
+                                        @else
+                                            <a href="{{ url('admin/mutasi/tambah', $data->id) }}" 
+                                                class="btn btn-sm btn-primary">
+                                                <i class="fas fa-plus-circle"></i> Tambah Detail
+                                            </a>
+                                        @endif
                                     </div>
                                 </td>
+                                
                             </tr>
                         @empty
                             <tr>

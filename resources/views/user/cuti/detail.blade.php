@@ -34,9 +34,9 @@
                         <div class="row mb-2"><label class="{{ $labelClass }}">TMT Jabatan</label><div class="{{ $valueClass }}">{{ $pegawai->tmt_jabatan }}</div></div>
                         <div class="row mb-2"><label class="{{ $labelClass }}">Email</label><div class="{{ $valueClass }}">{{ $pegawai->pegawai_email }}</div></div>
                         <div class="row mb-2"><label class="{{ $labelClass }}">No HP</label><div class="{{ $valueClass }}">{{ $pegawai->pegawai_no_sk }}</div></div>
-                        <div class="row mb-2"><label class="{{ $labelClass }}">WhatsApp</label><div class="{{ $valueClass }}">{{ $pegawai->pegawai_wa }}</div></div>
-                        <div class="row mb-2"><label class="{{ $labelClass }}">Ajukan Cuti?</label><div class="{{ $valueClass }}">{{ $pegawai->pegawai_cuti ? 'Ya' : 'Tidak' }}</div></div>
-                        <div class="row mb-2"><label class="{{ $labelClass }}">Penilaian SKP</label><div class="{{ $valueClass }}">{{ $pegawai->pegawai_skp ? 'Ya' : 'Tidak' }}</div></div>
+                        {{-- <div class="row mb-2"><label class="{{ $labelClass }}">WhatsApp</label><div class="{{ $valueClass }}">{{ $pegawai->pegawai_wa }}</div></div> --}}
+                        {{-- <div class="row mb-2"><label class="{{ $labelClass }}">Ajukan Cuti?</label><div class="{{ $valueClass }}">{{ $pegawai->pegawai_cuti ? 'Ya' : 'Tidak' }}</div></div>
+                        <div class="row mb-2"><label class="{{ $labelClass }}">Penilaian SKP</label><div class="{{ $valueClass }}">{{ $pegawai->pegawai_skp ? 'Ya' : 'Tidak' }}</div></div> --}}
                         <div class="row mb-2"><label class="{{ $labelClass }}">Nomor Surat</label><div class="{{ $valueClass }}">{{ $cuti->nomor_surat }}</div></div>
                         <div class="row mb-2"><label class="{{ $labelClass }}">Tanggal Surat</label><div class="{{ $valueClass }}">{{ $cuti->tanggal_surat }}</div></div>
                         <div class="row mb-2"><label class="{{ $labelClass }}">Tanggal Mulai</label><div class="{{ $valueClass }}">{{ $cuti->tanggal_mulai }}</div></div>
@@ -45,20 +45,25 @@
                         <div class="row mb-2"><label class="{{ $labelClass }}">Jumlah Hari</label><div class="{{ $valueClass }}">{{ $cuti->jumlah_hari }}</div></div>
 
                       
-                        {{-- <div class="row mb-3">
-                            <label class="{{ $labelClass }}">Foto Profil</label>
+                         <label class="{{ $labelClass }}">File Pendukung</label>
                             <div class="{{ $valueClass }}">
-                                @if($pegawai->pegawai_gambar)
-                                    <img src="{{ asset('uploads/' . $pegawai->pegawai_gambar) }}" width="100" alt="Foto Pegawai">
+                                @if($cuti->file_pendukung)
+                                    <div class="border rounded p-2" style="max-width: 500px">
+                                        {{-- <img src="{{ url('system/public/uploads/' . $cuti->file_pendukung) }}" class="img-fluid rounded mb-2" alt="File Pendukung"> --}}
+                                        <a href="{{ url('system/public/uploads/' . $cuti->file_pendukung) }}" download class="btn btn-sm btn-outline-primary">
+                                            Download File
+                                        </a>
+                                    </div>
                                 @else
                                     <em>Belum ada foto</em>
                                 @endif
                             </div>
-                        </div> --}}
+                        </div>
+                        
 
                         <div class="d-flex justify-content-end">
                             <button onclick="window.print()" class="btn btn-info me-2">Print</button>
-                            <a href="{{ url('admin/cuti') }}" class="btn btn-secondary">Kembali</a>
+                            <a href="{{ url('user/cuti') }}" class="btn btn-secondary">Kembali</a>
                         </div>
                     </div>
                 </div>

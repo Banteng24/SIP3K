@@ -31,7 +31,7 @@
                                 <div class="card-body p-5">
                                     <div class="text-center mb-4">
                                         <img src="{{ url('public/template/user/assets/images/logo-icon.png') }}" width="80" alt="">
-                                        <h3 class="mt-3 font-weight-bold">Welcome Back</h3>
+                                        <h3 class="mt-3 font-weight-bold">Selamat Datang</h3>
                                     </div>
 
                                     <!-- Form -->
@@ -48,25 +48,40 @@
                                             </div>
                                         @endif
 
-                                        <div class="login-separater text-center mb-4">
+                                        {{-- <div class="login-separater text-center mb-4">
                                             <span>OR SIGN IN WITH EMAIL</span>
                                             <hr>
-                                        </div>
+                                        </div> --}}
 
-                                        <!-- Email -->
+                                       <!-- Email -->
                                         <div class="col-12">
-                                            <label for="inputEmailAddress" class="form-label">Email Address</label>
-                                            <input type="email" name="email" class="form-control" id="inputEmailAddress" placeholder="Email Address" required>
+                                            <label for="inputEmailAddress" class="form-label">Alamat Email</label>
+                                            <input type="email"
+                                                name="email"
+                                                class="form-control"
+                                                id="inputEmailAddress"
+                                                placeholder="Masukkan alamat email"
+                                                required
+                                                oninvalid="this.setCustomValidity('Silakan masukkan alamat email yang valid')"
+                                                oninput="this.setCustomValidity('')">
                                         </div>
 
                                         <!-- Password -->
                                         <div class="col-12">
-                                            <label for="inputChoosePassword" class="form-label">Enter Password</label>
+                                            <label for="inputChoosePassword" class="form-label">Kata Sandi</label>
                                             <div class="input-group" id="show_hide_password">
-                                                <input type="password" name="password" class="form-control border-end-0" id="inputChoosePassword" placeholder="Enter Password" required>
+                                                <input type="password"
+                                                    name="password"
+                                                    class="form-control border-end-0"
+                                                    id="inputChoosePassword"
+                                                    placeholder="Masukkan kata sandi"
+                                                    required
+                                                    oninvalid="this.setCustomValidity('Silakan masukkan kata sandi')"
+                                                    oninput="this.setCustomValidity('')">
                                                 <a href="#" class="input-group-text bg-transparent"><i class="bx bx-hide"></i></a>
                                             </div>
                                         </div>
+
 
                                         <!-- Submit -->
                                         <div class="col-12">

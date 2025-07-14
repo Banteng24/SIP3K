@@ -1,8 +1,16 @@
 <x-admin>
+    @if(session('success'))
+<div class="alert alert-success alert-dismissible fade show" role="alert">
+    <strong>✅ Data berhasil disimpan!</strong><br>
+    {{ session('success') }}
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Tutup"></button>
+</div>
+@endif
+
     <div class="card">
         <div class="card-body">
             <div class="d-flex justify-content-between align-items-center mb-3">
-                <h4 class="mb-0">Data Pegawai</h4>
+                <h4 class="mb-0">Akun Baru Sintari</h4>
                 {{-- <a class="btn btn-success btn-sm" href="{{ url('admin/akun-baru/tambah') }}">
                     <i class="fas fa-user-plus"></i> Tambah Akun
                 </a> --}}
@@ -75,17 +83,24 @@
                             <td>{{ $akun->password }}</td>
                             <td>
                                 <div class="d-flex justify-content-center gap-2">
-                                    <a href="{{ url('admin/akun-baru/edit/' . $akun->id) }}" class="btn btn-warning btn-sm" title="Edit">
-                                        <i data-feather="edit"></i>
-                                    </a>
-                                    {{-- <a href="{{ url('admin/cuti/delete/' . $akun->id) }}"
-                                       class="btn btn-danger btn-sm"
-                                       onclick="confirmDelete(event, this.href)"
-                                       title="Hapus">
-                                        <i data-feather="trash-2"></i>
-                                    </a> --}}
+                                    @if($akun->password)
+                                        <a href="{{ url('admin/akun-baru/edit/' . $akun->id) }}" 
+                                           class="btn btn-sm btn-warning rounded-pill px-3">
+                                            Ubah
+                                        </a>
+                                        <a href="{{ url('admin/akun-baru/detail/' . $akun->id) }}" 
+                                           class="btn btn-sm btn-secondary rounded-pill px-3">
+                                            Lihat
+                                        </a>
+                                    @else
+                                        <a href="{{ url('admin/akun-baru/edit/' . $akun->id) }}" 
+                                           class="btn btn-sm btn-primary rounded-pill px-3">
+                                            Lihat Detail
+                                        </a>
+                                    @endif
                                 </div>
                             </td>
+                            
                         </tr>
                         @endforeach
                     </tbody>
@@ -102,4 +117,6 @@
             }
         }
     </script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+
 </x-admin>

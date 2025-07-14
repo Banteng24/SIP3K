@@ -36,7 +36,7 @@
             @endif
 
             <!-- Form -->
-            <form action="{{ url('user/pajak/update', $pajak->id) }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ url('user/pajak/submit', $pajak->id) }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <hr>
                 <div class="card border-top border-0 border-4 border-info">
@@ -119,7 +119,7 @@
                                     @enderror
                                     
                                     <small class="text-muted">
-                                        Format yang diizinkan: PDF, DOC, DOCX, JPG, PNG (Max: 2MB)
+                                        Format yang diizinkan: PDF (Max: 2MB)
                                     </small>
                                 </div>
                             </div>

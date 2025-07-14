@@ -12,6 +12,7 @@ class PajakController extends Controller
 {
     public function index(Request $request)
     {
+        
         // Ambil parameter pencarian NIP saja
         $search = $request->get('search') ?? $request->get('keyword') ?? null;
         
@@ -23,7 +24,11 @@ class PajakController extends Controller
         } else {
             // Jika tidak ada pencarian, kirim collection kosong
             $pajak = collect();
+            // $pajak = Sintari_pegawai::get();
         }
+        
+
+        
         
         return view('user.pajak.index', compact('pajak'));
     }
@@ -47,7 +52,7 @@ class PajakController extends Controller
     }
 
    // In your PajakController update method
-   public function update(Request $request, $id) 
+   public function submit(Request $request, $id) 
    {
        try {
            // Validasi file yang diupload
@@ -106,18 +111,65 @@ class PajakController extends Controller
        }
    }
 
-    // public function delete($id)
-    // {
-    //     $pajak = Pajak::findOrFail($id);
+   public function update(Request $request, $id)
+   {
+    try {
+        // Validasi file yang diupload
+        $request->validate([
+            'file' => 'nullable|file|mimes:pdf,doc,docxz,jpg,jpeg,png|max:2048'
+        ], [
+            'file.mimes' => 'Format file harus berupa PDF, DOC, DOCX, JPG, atau PNG.',
+            'file.max' => 'Ukuran file maksimal 2MB.',
+        ]);
+
+        // Cari data pajak berdasarkan ID
+        $pajak = Sintari_pegawai::findOrFail($id);
         
-    //     // Hapus file jika ada
-    //     if ($pajak->file && file_exists(public_path('uploads/' . $pajak->file))) {
-    //         unlink(public_path('uploads/' . $pajak->file));
-    //     }
+        // Simpan nama pegawai untuk pesan notifikasi
+        $namaPegawai = $pajak->nama;
         
-    //     $pajak->delete();
-    //     return redirect('user/pajak')->with('success', 'Data berhasil dihapus');
-    // }
+        // Proses upload file jika ada file yang diupload
+        if ($request->hasFile('file')) {
+            // Hapus file lama jika ada
+            if ($pajak->file && file_exists(public_path('uploads/' . $pajak->file))) {
+                unlink(public_path('uploads/' . $pajak->file));
+            }
+            
+            // Buat nama file baru dengan timestamp
+            $fileName = time() . '_' . $request->file('file')->getClientOriginalName();
+            
+            // Buat folder uploads jika belum ada
+            if (!file_exists(public_path('uploads'))) {
+                mkdir(public_path('uploads'), 0755, true);
+            }
+            
+            // Pindahkan file ke folder uploads
+            $request->file('file')->move(public_path('uploads'), $fileName);
+            
+            // Simpan nama file ke database
+            $pajak->file = $fileName;
+            $pajak->save();
+        }
+        
+        // Redirect ke halaman edit dengan pesan sukses
+        return redirect('user/pajak')
+        ->with('success', 'File pajak berhasil diperbarui untuk ' . $namaPegawai . '! 📄✅');
+    
+            
+    } catch (\Illuminate\Validation\ValidationException $e) {
+        // Jika validasi gagal, kembali ke halaman sebelumnya dengan error
+        return redirect()->back()
+            ->withErrors($e->errors())
+            ->withInput();
+            
+    } catch (\Exception $e) {
+        // Jika terjadi error lain, tampilkan pesan error umum
+        return redirect()->back()
+            ->with('error', 'Terjadi kesalahan saat mengupload file. Silakan coba lagi.')
+            ->withInput();
+    }
+}
+
 
     public function cari(Request $request)
     {

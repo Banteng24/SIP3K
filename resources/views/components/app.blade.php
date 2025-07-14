@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 
 <head>
 	<!-- Required meta tags -->
@@ -85,7 +85,7 @@
 	<script src="{{url('public/template/user')}}/assets/plugins/datatable/js/jquery.dataTables.min.js"></script>
 	<!-- App JS -->
 	<script src="{{url('public/template/user')}}/assets/js/app.js"></script>
-	<script>
+	{{-- <script>
 		$(document).ready(function () {
 			//Default data table
 			$('#example').DataTable();
@@ -95,7 +95,7 @@
 			});
 			table.buttons().container().appendTo('#example2_wrapper .col-md-6:eq(0)');
 		});
-	</script>
+	</script> --}}
 	<!-- App JS -->
 	<script src="{{url('public/template/user')}}/assets/js/app.js"></script>
 	

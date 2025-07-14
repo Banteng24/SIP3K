@@ -21,6 +21,7 @@ class MutasiController extends Controller
         } else {
             // Jika tidak ada pencarian, kirim collection kosong
             $mutasi = collect();
+            $mutasi = Sintari_pegawai::get();
         }
         
         return view('admin.mutasi.index', compact('mutasi'));
@@ -41,11 +42,31 @@ class MutasiController extends Controller
 
     //     return redirect('admin/mutasi')->with('success','Dikirim');
     // }
+    function tambah($id){
+        $mutasi = Sintari_pegawai::findOrFail($id);
+        return view('admin.mutasi.tambah', compact('mutasi'));
+    }
     function edit($id){
         $mutasi = Sintari_pegawai::findOrFail($id);
         return view('admin.mutasi.edit', compact('mutasi'));
     }
 
+    public function submit(Request $request, $id)
+    {
+        $mutasi = Sintari_pegawai::findOrFail($id);
+        $mutasi->nama = $request->nama_pegawai;
+        $mutasi->nip = $request->nip;
+        $mutasi->opd = $request->opd_lama;
+        $mutasi->jabatan = $request->jabatan;   
+        $mutasi->opd_baru = $request->opd_baru;
+        $mutasi->jabatan = $request->jabatan_baru;
+        $mutasi->pegawai_tgl_sk = $request->pegawai_tgl_sk;
+        // $mutasi->pimpinan_opd = $request->pimpinan_opd;
+        $mutasi->update();
+    
+        return redirect('admin/mutasi')
+            ->with('success', 'mutasi berhasil ditambahkan untuk ' . $mutasi->nama . '! 📄✅');
+    }
     public function update(Request $request, $id)
     {
         $mutasi = Sintari_pegawai::findOrFail($id);
@@ -53,14 +74,14 @@ class MutasiController extends Controller
         $mutasi->nip = $request->nip;
         $mutasi->opd = $request->opd_lama;
         $mutasi->jabatan = $request->jabatan;   
-        $mutasi->opd = $request->opd_baru;
+        $mutasi->opd_baru = $request->opd_baru;
         $mutasi->jabatan = $request->jabatan_baru;
-        $mutasi->pegawai_tgl_sk = $request->tanggal_sk;
+        $mutasi->pegawai_tgl_sk = $request->pegawai_tgl_sk;
         // $mutasi->pimpinan_opd = $request->pimpinan_opd;
         $mutasi->update();
     
         return redirect('admin/mutasi')
-            ->with('success', 'Data mutasi berhasil diperbarui untuk ' . $mutasi->nama_pegawai . '! 📄✅');
+            ->with('success', 'mutasi berhasil diperbarui untuk ' . $mutasi->nama . '! 📄✅');
     }
 
     public function cari(Request $request)
@@ -83,6 +104,11 @@ class MutasiController extends Controller
         return response()->json($data);
     }
 
+    public function show($id)
+    {
+        $mutasi = Sintari_pegawai::findOrFail($id);
+        return view('admin.mutasi.show', compact('mutasi'));
+    }
 
 
 }
