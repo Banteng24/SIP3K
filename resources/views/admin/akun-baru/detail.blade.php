@@ -29,7 +29,7 @@
 
                         <hr>
                         <div class="d-flex justify-content-end">
-                            <button onclick="window.print()" class="btn btn-info me-2">Print</button>
+                            <a href="{{ route('akun-baru.export.pdf', $akuns->id) }}" class="btn btn-danger">Download PDF</a>
                             <a href="{{ url('admin/akun-baru') }}" class="btn btn-secondary me-2">Kembali</a>
 
                             {{-- @if(!$akuns->user_id)

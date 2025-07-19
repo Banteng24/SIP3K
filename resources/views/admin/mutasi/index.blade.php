@@ -13,6 +13,9 @@
 
     <div class="card">
         <div class="card-body">
+
+
+            
             <!-- Header -->
             <div class="card-title d-flex justify-content-between align-items-center">
                 <h4 class="mb-0 text-uppercase">Data Mutasi Pegawai</h4>
@@ -21,6 +24,8 @@
                 </a> --}}
             </div>
             <hr>
+
+            
 
             <!-- Search Form -->
             <div class="row mb-3">
@@ -69,7 +74,7 @@
                             {{-- <th>OPD Lama</th> --}}
                             {{-- <th>Jabatan Lama</th> --}}
                             <th>OPD Baru</th>
-                            <th>Jabatan Baru</th>
+                            <th>Jabatan sekarang</th>
                             <th>Tanggal SK</th>
                             {{-- <th>Pimpinan OPD</th> --}}
                             <th>Status</th>
@@ -92,7 +97,7 @@
                                 <td>
                                     @if($data->opd_baru)
                                         <span class="badge bg-success">
-                                            <i class="fas fa-check"></i> Berhasil
+                                            <i class="fas fa-check"></i> Mutasi
                                         </span>
                                     @else
                                         <span class="badge bg-danger">
@@ -119,7 +124,7 @@
                                         @endif
                                     </div>
                                 </td>
-                                
+
                             </tr>
                         @empty
                             <tr>
@@ -146,9 +151,11 @@
                         @endforelse
                     </tbody>
                 </table>
+                
             </div>
         </div>
     </div>
+    
 </x-admin>
 
 <style>

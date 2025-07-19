@@ -18,16 +18,16 @@
                 <div class="card-body">
                     <div class="row text-center">
                         <div class="col-md-4 mb-3">
-                            <h5 class="text-primary mb-1">{{ $totalUsers ?? 0 }}</h5>
-                            <span>Total Pegawai Terdaftar</span>
+                            <h5 class="text-primary mb-1">{{ $totalmutasi ?? 0 }}</h5>
+                            <span>Total Pegawai Mutasi</span>
                         </div>
                         <div class="col-md-4 mb-3">
-                            <h5 class="text-warning mb-1">{{ $pendingLeaves ?? 0 }}</h5>
+                            <h5 class="text-warning mb-1">{{ $totalcuti ?? 0 }}</h5>
                             <span>Pengajuan Cuti Masuk</span>
                         </div>
                         <div class="col-md-4 mb-3">
-                            <h5 class="text-success mb-1">{{ $approvedLeaves ?? 0 }}</h5>
-                            <span>Cuti Disetujui Bulan Ini</span>
+                            <h5 class="text-success mb-1">{{ $totalpajak ?? 0 }}</h5>
+                            <span>Pajak Spt Bulan Ini</span>
                         </div>
                     </div>
                 </div>

@@ -35,7 +35,8 @@
                         <div class="row mb-2"><label class="{{ $labelClass }}">Email</label><div class="{{ $valueClass }}">{{ $pensiun->pegawai_email }}</div></div>
 
                         <div class="d-flex justify-content-end">
-                            <button onclick="window.print()" class="btn btn-info me-2">Print</button>
+                            <a href="{{ route('pensiun.export.pdf', $pensiun->id) }}" class="btn btn-danger">Download PDF</a>
+
                             <a href="{{ url('admin/pensiun') }}" class="btn btn-secondary">Kembali</a>
                         </div>
                     </div>

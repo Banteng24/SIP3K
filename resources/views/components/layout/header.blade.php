@@ -162,7 +162,6 @@
                         <a href="javascript:;" class="text-center msg-footer">View All Notifications</a>
                     </div>
                 </li> --}}
-
                 <li class="nav-item dropdown dropdown-user-profile">
                     <a class="nav-link dropdown-toggle dropdown-toggle-nocaret" href="javascript:;" data-bs-toggle="dropdown">
                         <div class="d-flex user-box align-items-center">
@@ -175,7 +174,7 @@
                     </a>
 
                     <div class="dropdown-menu dropdown-menu-end">
-                        <a class="dropdown-item" href="{{'user/profile'}}">
+                        <a class="dropdown-item" href="{{'user/ profile'}}">
                             <i class="bx bx-user"></i><span>Profile</span>
                         </a>
 

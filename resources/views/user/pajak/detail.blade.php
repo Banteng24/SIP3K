@@ -61,15 +61,15 @@
                         
 
                         <div class="d-flex justify-content-end">
-                            <button onclick="window.print()" class="btn btn-info me-2">Print</button>
-                            <a href="{{ url('admin/cuti') }}" class="btn btn-secondary">Kembali</a>
+                            <a href="{{ route('spt.export.pdf', $pegawai->id) }}" class="btn btn-danger">Download PDF</a>
+                            <a href="{{ url('user/pajak') }}" class="btn btn-secondary">Kembali</a>
                         </div>
                         
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+    </div>  
 </x-app>
 <style>
     @media print {

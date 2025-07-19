@@ -46,37 +46,10 @@
                             <div class="row mb-3">
                                 <label for="opdBaru" class="col-sm-3 col-form-label">OPD Baru</label>
                                 <div class="col-sm-9">
-                                    <select name="opd_baru" value="{{ $mutasi->opd_baru }}" class="form-control" id="opdBaru" required>
-                                        <option value="">-- Pilih OPD --</option>
-                                        <option value="Sekretariat Daerah">Sekretariat Daerah</option>
-                                        <option value="Dinas Pendidikan">Dinas Pendidikan</option>
-                                        <option value="Dinas Kesehatan">Dinas Kesehatan</option>
-                                        <option value="Dinas Pekerjaan Umum dan Tata Ruang">Dinas Pekerjaan Umum dan Tata Ruang</option>
-                                        <option value="Dinas Perhubungan">Dinas Perhubungan</option>
-                                        <option value="Dinas Sosial">Dinas Sosial</option>
-                                        <option value="Dinas Pemberdayaan Perempuan dan Perlindungan Anak">Dinas Pemberdayaan Perempuan dan Perlindungan Anak</option>
-                                        <option value="Dinas Koperasi dan UKM">Dinas Koperasi dan UKM</option>
-                                        <option value="Dinas Perdagangan dan Perindustrian">Dinas Perdagangan dan Perindustrian</option>
-                                        <option value="Dinas Perumahan Rakyat dan Kawasan Permukiman">Dinas Perumahan Rakyat dan Kawasan Permukiman</option>
-                                        <option value="Dinas Lingkungan Hidup">Dinas Lingkungan Hidup</option>
-                                        <option value="Dinas Kependudukan dan Pencatatan Sipil">Dinas Kependudukan dan Pencatatan Sipil</option>
-                                        <option value="Dinas Tenaga Kerja dan Transmigrasi">Dinas Tenaga Kerja dan Transmigrasi</option>
-                                        <option value="Dinas Komunikasi dan Informatika">Dinas Komunikasi dan Informatika</option>
-                                        <option value="Dinas Kebudayaan dan Pariwisata">Dinas Kebudayaan dan Pariwisata</option>
-                                        <option value="Dinas Pertanian, Peternakan, dan Perkebunan">Dinas Pertanian, Peternakan, dan Perkebunan</option>
-                                        <option value="Dinas Pangan dan Perikanan">Dinas Pangan dan Perikanan</option>
-                                        <option value="Dinas Pemuda dan Olahraga">Dinas Pemuda dan Olahraga</option>
-                                        <option value="Dinas Penanaman Modal dan Pelayanan Terpadu Satu Pintu">Dinas Penanaman Modal dan Pelayanan Terpadu Satu Pintu</option>
-                                        <option value="Badan Kepegawaian dan Pengembangan Sumber Daya Manusia">Badan Kepegawaian dan Pengembangan Sumber Daya Manusia</option>
-                                        <option value="Badan Perencanaan Pembangunan Daerah">Badan Perencanaan Pembangunan Daerah</option>
-                                        <option value="Badan Pengelola Keuangan dan Aset Daerah">Badan Pengelola Keuangan dan Aset Daerah</option>
-                                        <option value="Badan Pendapatan Daerah">Badan Pendapatan Daerah</option>
-                                        <option value="Inspektorat Daerah">Inspektorat Daerah</option>
-                                        <option value="Satuan Polisi Pamong Praja">Satuan Polisi Pamong Praja</option>
-                                        <option value="Sekretariat DPRD">Sekretariat DPRD</option>
-                                    </select>
-                                </div>
+                                    <input type="text" name="opd_baru" value="{{ $mutasi->opd_baru }}" class="form-control" id="opdBaru" placeholder="Masukkan Opd Baru">
                             </div>
+                            </div>
+                            
                             
                             <div class="row mb-3">
                                 <label for="jabatanBaru" class="col-sm-3 col-form-label">Jabatan Baru</label>

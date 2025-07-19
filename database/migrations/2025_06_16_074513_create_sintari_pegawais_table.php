@@ -40,6 +40,7 @@
             $table->string('password')->nullable();
             $table->date('tgl_sk_pengangkatan')->nullable();
             $table->date('tgl_spmt')->nullable();
+            $table->string('status_pensiun')->nullable();
 
 
             $table->timestamps();

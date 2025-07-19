@@ -21,7 +21,8 @@ Route::prefix('cuti')->controller(CutiController::class)->group(function () {
     Route::get('detail/{id}', 'detail');
     Route::get('edit/{id}', 'edit');    // Proses form tambah pegawai pajak
     Route::post('update/{id}', 'update');    // Proses form update pegawai pajak
-    
+    Route::get('pdf/{id}/pdf}', 'exportPDF')->name('pdf.export.pdf');
+
 });
 
 // Route untuk halaman pajak
@@ -35,7 +36,7 @@ Route::prefix('pajak')->controller(PajakController::class)->group(function () {
     Route::get('cari', 'cari');
     Route::get('autocomplete', 'autocomplete');
     Route::get('detail/{nip}', 'detail');
-
+    Route::get('spt/{id}/pdf}', 'exportPDF')->name('spt.export.pdf');
 
 
 

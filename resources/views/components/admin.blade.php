@@ -152,12 +152,11 @@
 			$('#example').DataTable();
 			var table = $('#example2').DataTable({
 				lengthChange: false,
-				buttons: ['copy', 'excel', 'pdf', 'print', 'colvis']
 			});
 			table.buttons().container().appendTo('#example2_wrapper .col-md-6:eq(0)');
 		});
-	</script>
-	<!-- App JS -->
+	</script> 
+	<!-- App JS --> 
 	<script src="{{url('public/template/admin')}}/assets/js/app.js"></script>
 	<script>
 		feather.replace();

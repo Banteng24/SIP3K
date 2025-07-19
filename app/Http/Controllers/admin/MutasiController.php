@@ -4,6 +4,7 @@ namespace App\Http\Controllers\admin;
 use App\Http\Controllers\Controller;
 use App\Models\mutasi;
 use App\Models\Sintari_pegawai;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 
 class MutasiController extends Controller
@@ -109,6 +110,15 @@ class MutasiController extends Controller
         $mutasi = Sintari_pegawai::findOrFail($id);
         return view('admin.mutasi.show', compact('mutasi'));
     }
+
+    public function exportPDF($id)
+    {
+        $pegawai = Sintari_pegawai::findOrFail($id);
+
+        $pdf = Pdf::loadView('admin.mutasi.pdf', compact('pegawai'))->setPaper('A4', 'portrait');
+        return $pdf->stream('data-pegawai-' . $pegawai->nama . '.pdf');
+    }
+
 
 
 }

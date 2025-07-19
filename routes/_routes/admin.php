@@ -27,6 +27,7 @@ Route::prefix('mutasi')->controller(MutasiController::class)->group(function () 
     Route::get('cari', 'cari');
     Route::get('autocomplete', 'autocomplete');
     Route::get('show/{nip}', 'show');
+    Route::get('mutasi/{id}/pdf}', 'exportPDF')->name('mutasi.export.pdf');
 
 });
 
@@ -51,26 +52,33 @@ Route::prefix('pensiun')->controller(PensiunController::class)->group(function (
     Route::post('submit/{id}', 'submit');
     Route::post('update/{id}', 'submit');
     Route::get('show/{nip}', 'show');
+    Route::get('pensiun/{id}/pdf}', 'exportPDF')->name('pensiun.export.pdf');
 
 });
 Route::prefix('pajak')->controller(PajakController::class)->group(function () {
     Route::get('/', 'index');
     Route::get('detail/{nip}', 'detail');
+    Route::get('pajak/{id}/pdf}', 'exportPDF')->name('pajak.export.pdf');
 
 });
 Route::prefix('akun-baru')->controller(AkunbaruController::class)->group(function () {
     Route::get('/', 'index');
     Route::get('tambah', 'tambah');
     Route::get('edit/{id}', 'edit');
-    Route::post('submit/{id}', 'submit');
+    Route::post('submit', 'submit');
+    Route::post('update/{id}', 'update');
     Route::get('pegawai/{nip}', 'getPegawaiByNip');
     Route::get('detail/{nip}', 'detail');
+    Route::get('cek-username/{username}', 'cekUsername');
+    Route::get('akun-baru/{id}/pdf}', 'exportPDF')->name('akun-baru.export.pdf');
 
 });
 Route::prefix('cuti')->controller(CutiController::class)->group(function () {
     Route::get('/', 'index');
     Route::get('detail/{id}', 'detail');
-
+    Route::get('cuti/{id}/pdf}', 'exportPDF')->name('cuti.export.pdf');
+    
 });
+
 
 

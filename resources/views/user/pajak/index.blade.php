@@ -14,6 +14,45 @@
 
     <div class="card">
         <div class="card-body">
+
+            <div class="alert alert-warning" role="alert">
+                <strong>Perhatian!</strong> Seluruh ASN diwajibkan untuk <strong>melaporkan SPT Tahunan</strong> melalui <a href="https://djponline.pajak.go.id" target="_blank">https://djponline.pajak.go.id</a> paling lambat tanggal <strong>31 Maret</strong> setiap tahun. 
+                <br>Silakan <strong>unggah bukti lapor SPT</strong> berupa file PDF <em>(contoh: formulir 1721-A2 atau bukti e-filing)</em> ke sistem ini sebagai bukti kepatuhan perpajakan.
+                <br><br>
+                ⚠️ Keterlambatan pelaporan dapat dikenakan sanksi berupa <strong>denda administratif sebesar Rp100.000</strong> sesuai ketentuan Direktorat Jenderal Pajak.
+            </div>
+            
+
+            <!-- Tombol Lihat Aturan -->
+<button class="btn btn-outline-secondary btn-sm mb-3" data-bs-toggle="modal" data-bs-target="#aturanSPTModal">
+    <i class="fas fa-info-circle"></i> Lihat Aturan SPT
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="aturanSPTModal" tabindex="-1" aria-labelledby="aturanSPTModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header bg-warning text-dark">
+        <h5 class="modal-title" id="aturanSPTModalLabel"><i class="fas fa-balance-scale"></i> Aturan Pelaporan SPT ASN</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Tutup"></button>
+      </div>
+      <div class="modal-body">
+        <ul>
+            {{-- <li>Setiap ASN wajib melaporkan <strong>SPT Tahunan</strong> melalui <a href="https://djponline.pajak.go.id" target="_blank">https://djponline.pajak.go.id</a>.</li> --}}
+            <li>Pelaporan dilakukan paling lambat <strong>tanggal 31 Maret</strong> setiap tahun untuk tahun pajak sebelumnya.</li>
+            <li>File yang diunggah harus berupa <strong>bukti lapor SPT</strong> (contoh: PDF dari e-Filing, bukti 1721-A2, atau screenshot hasil pelaporan).</li>
+            <li>Keterlambatan pelaporan dapat dikenakan <strong>denda Rp100.000</strong>.</li>
+            <li>Pastikan NIP dan data pribadi sesuai dengan yang tercantum di bukti potong pajak dari bendahara.</li>
+        </ul>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
             <!-- Header -->
             <div class="card-title d-flex justify-content-between align-items-center">
                 <h4 class="mb-0">Pajak SPT</h4>
@@ -61,9 +100,9 @@
             @endif
 
             <!-- Data Table -->
-            <div class="table-responsive mt-3">
-                <table id="pajakTable" class="table table-bordered table-striped table-hover text-center">
-                    <thead class="table-light">
+            <div class="table-responsive">
+                <table id="example" class="table table-striped table-bordered" style="width:100%">
+                  <thead>
                         <tr>
                             <th>No</th>
                             <th>Nama</th>
@@ -166,3 +205,4 @@
 </style>
 
 <script src="{{ asset('js/pajak-search.js') }}"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>

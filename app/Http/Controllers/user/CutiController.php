@@ -4,6 +4,7 @@ namespace App\Http\Controllers\user;
 use App\Http\Controllers\Controller;
 use App\Models\Cuti;
 use App\Models\Sintari_pegawai;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Carbon\Carbon;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -23,7 +24,7 @@ class CutiController extends Controller
         $request->validate([
             'nip' => 'required',
             'nama_pegawai' => 'required',
-            'nomor_surat' => 'required',
+            // 'nomor_surat' => 'required',
             'tanggal_surat' => 'required|date',
             'tanggal_mulai' => 'required|date',
             'tanggal_selesai' => 'required|date|after_or_equal:tanggal_mulai',
@@ -33,7 +34,7 @@ class CutiController extends Controller
         ], [
             'nip.required' => 'NIP wajib diisi.',
             'nama_pegawai.required' => 'Nama pegawai wajib diisi.',
-            'nomor_surat.required' => 'Nomor surat wajib diisi.',
+            // 'nomor_surat.required' => 'Nomor surat wajib diisi.',
             'tanggal_surat.required' => 'Tanggal surat wajib diisi.',
             'tanggal_surat.date' => 'Tanggal surat tidak valid.',
             'tanggal_mulai.required' => 'Tanggal mulai cuti wajib diisi.',
@@ -107,7 +108,7 @@ class CutiController extends Controller
         $cuti = new Cuti();
         $cuti->nip = $request->nip;
         $cuti->nama_pegawai = $request->nama_pegawai;
-        $cuti->nomor_surat = $request->nomor_surat;
+        // $cuti->nomor_surat = $request->nomor_surat;
         $cuti->tanggal_surat = $request->tanggal_surat;
         $cuti->tanggal_mulai = $request->tanggal_mulai;
         $cuti->tanggal_selesai = $request->tanggal_selesai;
@@ -204,7 +205,7 @@ public function getPegawaiByNip($nip)
         $cuti = Cuti::findOrFail($id);
         $cuti->nip = $request->nip;
         $cuti->nama_pegawai = $request->nama_pegawai;
-        $cuti->nomor_surat = $request->nomor_surat;
+        // $cuti->nomor_surat = $request->nomor_surat;
         $cuti->tanggal_surat = $request->tanggal_surat;
         $cuti->tanggal_mulai = $request->tanggal_mulai;
         $cuti->tanggal_selesai = $request->tanggal_selesai;
@@ -221,6 +222,14 @@ public function getPegawaiByNip($nip)
         $cuti->save();
     
         return redirect('user/cuti')->with('success', 'Data cuti berhasil diperbarui.');
+    }
+
+    public function exportPDF($id)
+    {
+        $pegawai = Cuti::findOrFail($id);
+
+        $pdf = Pdf::loadView('user.cuti.pdf', compact('pegawai'))->setPaper('A4', 'portrait');
+        return $pdf->stream('data-pegawai-' . $pegawai->nama . '.pdf');
     }
     
 

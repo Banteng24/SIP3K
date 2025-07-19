@@ -17,7 +17,7 @@ return new class extends Migration
                 $table->id();
                 $table->string('nip');
                 $table->string('nama_pegawai');
-                $table->string('nomor_surat');
+                // $table->string('nomor_surat');
                 $table->date('tanggal_surat');
                 $table->date('tanggal_mulai');
                 $table->date('tanggal_selesai');

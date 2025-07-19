@@ -30,7 +30,7 @@
 
                         <hr>
                         <div class="d-flex justify-content-end">
-                            <button onclick="window.print()" class="btn btn-info me-2">Print</button>
+                            <a href="{{ route('mutasi.export.pdf', $mutasi->id) }}" class="btn btn-danger">Download PDF</a>
                             <a href="{{ url('admin/mutasi') }}" class="btn btn-secondary me-2">Kembali</a>
                         </div>
 

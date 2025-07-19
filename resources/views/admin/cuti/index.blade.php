@@ -12,21 +12,21 @@
 
       <hr/>
 
-      <div class="table-responsive">
-        <table id="example2" class="table table-striped table-bordered" style="width:100%">
-          <thead class="table-light">
+      <div class="table-responsive mt-3">
+        <table id="example2" class="table table-bordered table-striped table-hover text-center">
+            <thead class="table-info">  
             <tr>
               <th>No</th>
               <th>NIP</th>
               <th>Nama Pegawai</th>
-              <th>Nomor Surat</th>
+              {{-- <th>Nomor Surat</th> --}}
               <th>Tanggal Surat</th>
               <th>Tanggal Mulai Cuti</th>
               <th>Tanggal Selesai Cuti</th>
               <th>Alasan Cuti</th>
               <th>Jumlah Hari</th>
-              <th>File Pendukung</th>
               <th>Status</th>
+              <th>File Pendukung</th>
               <th>Aksi</th>
             </tr>
           </thead>
@@ -36,7 +36,7 @@
                 <td>{{ $no + 1 }}</td>
                 <td>{{ $data->nip }}</td>
                 <td>{{ $data->nama_pegawai }}</td>
-                <td>{{ $data->nomor_surat }}</td>
+                {{-- <td>{{ $data->nomor_surat }}</td> --}}
                 <td>{{ $data->tanggal_surat }}</td>
                 <td>{{ $data->tanggal_mulai }}</td>
                 <td>{{ $data->tanggal_selesai }}</td>

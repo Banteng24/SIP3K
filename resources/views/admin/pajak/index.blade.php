@@ -49,9 +49,9 @@
           @endif --}}
 
           <!-- Data Table -->
-						<div class="table-responsive">
-							<table id="example" class="table table-striped table-bordered" style="width:100%">
-								<thead>
+          <div class="table-responsive mt-3">
+            <table id="example2" class="table table-bordered table-striped table-hover text-center">
+                <thead class="table-info">  
                       <tr>
                           <th>No</th>
                           <th>Nama</th>

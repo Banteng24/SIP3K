@@ -47,7 +47,7 @@
                   </div>
                 </div>
               
-                <div class="row mb-3">
+                {{-- <div class="row mb-3">
                   <label for="nomor_surat" class="col-sm-3 col-form-label">Nomor Surat</label>
                   <div class="col-sm-9">
                     <input type="text" class="form-control @error('nomor_surat') is-invalid @enderror" 
@@ -58,7 +58,7 @@
                       <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
                   </div>
-                </div>
+                </div> --}}
               
                 <div class="row mb-3">
                   <label for="tanggal_surat" class="col-sm-3 col-form-label">Tanggal Surat</label>
@@ -129,14 +129,22 @@
                   <label for="file_pendukung" class="col-sm-3 col-form-label">File Pendukung</label>
                   <div class="col-sm-9">
                     <input type="file" class="form-control @error('file_pendukung') is-invalid @enderror" 
-                          id="file_pendukung" name="file_pendukung" accept=".pdf,.doc,.docx,.jpg,.jpeg,.png">
+                          id="file_pendukung" name="file_pendukung" accept=".pdf">
                     <small class="text-muted">Format: PDF (Max: 2MB)</small>
                     @error('file_pendukung')
                       <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
+                
+                    @if ($cuti->file_pendukung)
+                      <div class="mt-2">
+                        <a href="{{ asset('system/public/uploads/' . $cuti->file_pendukung) }}" target="_blank">
+                          📎 Lihat file yang telah diunggah
+                        </a>
+                      </div>
+                    @endif
                   </div>
                 </div>
-
+                
                 {{-- Catatan Larangan Cuti --}}
                 <div class="row mb-3">
                   <label class="col-sm-3 col-form-label">Catatan</label>
@@ -174,215 +182,410 @@
 
   <script>
     document.addEventListener('DOMContentLoaded', function() {
-    const nipInput = document.getElementById('nip');
-    const namaPegawaiInput = document.getElementById('nama_pegawai');
-    const tanggalMulai = document.getElementById('tanggal_mulai');
-    const tanggalSelesai = document.getElementById('tanggal_selesai');
-    const jumlahHari = document.getElementById('jumlah_hari');
-    const alasanCuti = document.getElementById('alasan_cuti');
-    const alertKuota = document.getElementById('alertKuota');
-    const infoKuota = document.getElementById('infoKuota');
-
-    // Variable untuk debouncing
-    let nipTimeout;
-    let currentNipRequest;
-
-    // ===== AUTO-FILL NAMA PEGAWAI BERDASARKAN NIP (REALTIME) =====
-    nipInput.addEventListener('input', function() {
-        const nip = this.value.trim();
-        
-        // Clear timeout sebelumnya
-        if (nipTimeout) {
-            clearTimeout(nipTimeout);
-        }
-        
-        // Cancel request sebelumnya jika masih berjalan
-        if (currentNipRequest) {
-            currentNipRequest.abort();
-        }
-        
-        // Reset nama pegawai jika NIP kosong atau kurang dari 18 digit
-        if (!nip || nip.length < 18) {
-            namaPegawaiInput.value = '';
-            namaPegawaiInput.disabled = false;
-            alertKuota.style.display = 'none';
-            return;
-        }
-        
-        // Debouncing - tunggu 500ms setelah user berhenti mengetik
-        nipTimeout = setTimeout(() => {
-            // Validasi panjang NIP (harus 18 digit)
-            if (nip.length !== 18) {
+        const nipInput = document.getElementById('nip');
+        const namaPegawaiInput = document.getElementById('nama_pegawai');
+        const tanggalMulai = document.getElementById('tanggal_mulai');
+        const tanggalSelesai = document.getElementById('tanggal_selesai');
+        const jumlahHari = document.getElementById('jumlah_hari');
+        const alasanCuti = document.getElementById('alasan_cuti');
+        const alertKuota = document.getElementById('alertKuota');
+        const infoKuota = document.getElementById('infoKuota');
+    
+        // Variable untuk debouncing
+        let nipTimeout;
+        let currentNipRequest;
+    
+        // ===== KONFIGURASI KUOTA CUTI BERDASARKAN PP NO. 17 TAHUN 2020 =====
+        const kuotaCutiConfig = {
+            'CUTI TAHUNAN': {
+                title: 'Cuti Tahunan',
+                kuota: 12,
+                satuan: 'hari per tahun',
+                keterangan: 'Dapat diambil sekaligus atau bertahap',
+                warna: 'info'
+            },
+            'CUTI BESAR': {
+                title: 'Cuti Besar',
+                kuota: 90,
+                satuan: 'hari',
+                keterangan: 'Setiap 6 tahun masa kerja (untuk PNS)',
+                warna: 'success'
+            },
+            'CUTI SAKIT': {
+                title: 'Cuti Sakit',
+                kuota: 365,
+                satuan: 'hari per tahun',
+                keterangan: 'Dengan surat keterangan dokter',
+                warna: 'warning'
+            },
+            'CUTI BERSALIN': {
+                title: 'Cuti Bersalin',
+                kuota: 90,
+                satuan: 'hari',
+                keterangan: 'Khusus PNS perempuan (3 bulan)',
+                warna: 'primary'
+            },
+            'CUTI ALASAN PENTING': {
+                title: 'Cuti Alasan Penting',
+                kuota: 30,
+                satuan: 'hari per tahun',
+                keterangan: 'Untuk kepentingan mendesak',
+                warna: 'secondary'
+            },
+            'CUTI DI LUAR TANGGUNGAN NEGARA (CLTN)': {
+                title: 'Cuti di Luar Tanggungan Negara',
+                kuota: 1095,
+                satuan: 'hari',
+                keterangan: 'Maksimal 3 tahun, tanpa gaji',
+                warna: 'dark'
+            }
+        };
+    
+        // ===== AUTO-FILL NAMA PEGAWAI BERDASARKAN NIP (REALTIME) =====
+        nipInput.addEventListener('input', function() {
+            const nip = this.value.trim();
+            
+            // Clear timeout sebelumnya
+            if (nipTimeout) {
+                clearTimeout(nipTimeout);
+            }
+            
+            // Cancel request sebelumnya jika masih berjalan
+            if (currentNipRequest) {
+                currentNipRequest.abort();
+            }
+            
+            // Reset nama pegawai jika NIP kosong atau kurang dari 18 digit
+            if (!nip || nip.length < 18) {
                 namaPegawaiInput.value = '';
+                namaPegawaiInput.disabled = false;
+                alertKuota.style.display = 'none';
                 return;
             }
             
-            // Show loading
-            namaPegawaiInput.value = 'Mencari nama pegawai...';
-            namaPegawaiInput.disabled = true;
-            
-            // Create AbortController untuk cancel request jika diperlukan
-            const controller = new AbortController();
-            currentNipRequest = controller;
-            
-            // AJAX request
-            fetch(`{{ url('user/cuti/pegawai') }}/${nip}`, {
-                signal: controller.signal
-            })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
-                return response.json();
-            })
-            .then(data => {
-                console.log('Response:', data); // Debug log
-                
-                if (data.status === 'success') {
-                    namaPegawaiInput.value = data.nama;
-                    namaPegawaiInput.disabled = false;
-                    
-                    // Trigger cek kuota jika cuti tahunan sudah dipilih
-                    if (alasanCuti.value === 'CUTI TAHUNAN' && tanggalMulai.value) {
-                        cekKuota();
-                    }
-                } else {
-                    throw new Error(data.message || 'Pegawai tidak ditemukan');
-                }
-            })
-            .catch(error => {
-                // Jika request dibatalkan, jangan tampilkan error
-                if (error.name === 'AbortError') {
+            // Debouncing - tunggu 500ms setelah user berhenti mengetik
+            nipTimeout = setTimeout(() => {
+                // Validasi panjang NIP (harus 18 digit)
+                if (nip.length !== 18) {
+                    namaPegawaiInput.value = '';
+                    alertKuota.style.display = 'none';
                     return;
                 }
                 
-                console.error('Error:', error);
-                namaPegawaiInput.value = '';
-                namaPegawaiInput.disabled = false;
+                // Show loading
+                namaPegawaiInput.value = 'Mencari nama pegawai...';
+                namaPegawaiInput.disabled = true;
                 
-                // Show user-friendly message hanya jika NIP sudah 18 digit
-                if (nip.length === 18) {
-                    // Tampilkan pesan error yang lebih subtle
-                    namaPegawaiInput.placeholder = 'Nama pegawai tidak ditemukan';
-                    setTimeout(() => {
-                        namaPegawaiInput.placeholder = 'Masukkan nama pegawai';
-                    }, 3000);
-                }
-            })
-            .finally(() => {
-                currentNipRequest = null;
-            });
-        }, 500); // Delay 500ms
-    });
-
-    // ===== BACKUP: BLUR EVENT UNTUK MEMASTIKAN =====
-    nipInput.addEventListener('blur', function() {
-        const nip = this.value.trim();
-        
-        // Jika nama pegawai masih kosong dan NIP sudah 18 digit, coba lagi
-        if (nip.length === 18 && !namaPegawaiInput.value) {
-            // Trigger input event untuk mencoba lagi
-            nipInput.dispatchEvent(new Event('input'));
-        }
-    });
-
-    // ===== FUNGSI UNTUK MENGHITUNG JUMLAH HARI =====
-    function hitungJumlahHari() {
-        if (tanggalMulai.value && tanggalSelesai.value) {
-            const mulai = new Date(tanggalMulai.value);
-            const selesai = new Date(tanggalSelesai.value);
+                // Create AbortController untuk cancel request jika diperlukan
+                const controller = new AbortController();
+                currentNipRequest = controller;
+                
+                // AJAX request untuk mendapatkan nama pegawai
+                fetch(`{{ url('user/cuti/pegawai') }}/${nip}`, {
+                    signal: controller.signal
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log('Response:', data);
+                    
+                    if (data.status === 'success') {
+                        namaPegawaiInput.value = data.nama;
+                        namaPegawaiInput.disabled = false;
+                        
+                        // OTOMATIS TAMPILKAN KUOTA BERDASARKAN JENIS CUTI YANG DIPILIH
+                        if (alasanCuti.value) {
+                            tampilkanKuotaCuti(nip, alasanCuti.value);
+                        } else {
+                            // Jika belum ada jenis cuti yang dipilih, tampilkan info umum
+                            tampilkanInfoUmumCuti();
+                        }
+                    } else {
+                        throw new Error(data.message || 'Pegawai tidak ditemukan');
+                    }
+                })
+                .catch(error => {
+                    if (error.name === 'AbortError') {
+                        return;
+                    }
+                    
+                    console.error('Error:', error);
+                    namaPegawaiInput.value = '';
+                    namaPegawaiInput.disabled = false;
+                    alertKuota.style.display = 'none';
+                    
+                    if (nip.length === 18) {
+                        namaPegawaiInput.placeholder = 'Nama pegawai tidak ditemukan';
+                        setTimeout(() => {
+                            namaPegawaiInput.placeholder = 'Masukkan nama pegawai';
+                        }, 3000);
+                    }
+                })
+                .finally(() => {
+                    currentNipRequest = null;
+                });
+            }, 500);
+        });
+    
+        // ===== FUNGSI UNTUK MENAMPILKAN INFO UMUM CUTI =====
+        function tampilkanInfoUmumCuti() {
+            infoKuota.innerHTML = `
+                <strong>Informasi Kuota Cuti ASN:</strong><br>
+                <div style="margin-top: 10px; font-size: 0.9em;">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <ul class="list-unstyled">
+                                <li><strong>Cuti Tahunan:</strong> 12 hari/tahun</li>
+                                <li><strong>Cuti Besar:</strong> 90 hari (setiap 6 tahun)</li>
+                                <li><strong>Cuti Sakit:</strong> 365 hari/tahun</li>
+                            </ul>
+                        </div>
+                        <div class="col-md-6">
+                            <ul class="list-unstyled">
+                                <li><strong>Cuti Bersalin:</strong> 90 hari</li>
+                                <li><strong>Cuti Alasan Penting:</strong> 30 hari/tahun</li>
+                                <li><strong>CLTN:</strong> 1095 hari (3 tahun)</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <small class="text-muted">Pilih jenis cuti untuk melihat detail kuota yang tersedia.</small>
+                </div>
+            `;
             
-            if (selesai >= mulai) {
-                const diffTime = Math.abs(selesai - mulai);
-                const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)) + 1;
-                jumlahHari.value = diffDays;
-                
-                // Cek kuota jika cuti tahunan
-                if (alasanCuti.value === 'CUTI TAHUNAN' && nipInput.value) {
-                    cekKuota();
-                }
-            } else {
-                jumlahHari.value = '';
-                alert('Tanggal selesai tidak boleh lebih awal dari tanggal mulai!');
-            }
+            alertKuota.className = 'alert alert-info';
+            alertKuota.style.display = 'block';
         }
-    }
-
-    // ===== FUNGSI UNTUK CEK KUOTA CUTI =====
-    function cekKuota() {
-        if (!nipInput.value || alasanCuti.value !== 'CUTI TAHUNAN') {
-            alertKuota.style.display = 'none';
-            return;
-        }
-
-        const tahun = new Date(tanggalMulai.value).getFullYear();
-        const baseUrl = window.location.origin;
-        
-        fetch(`{{ url('user/cuti/sisa-kuota') }}?nip=${nipInput.value}&tahun=${tahun}`)
-            .then(response => response.json())
-            .then(data => {
-                infoKuota.innerHTML = `
-                    <strong>Tahun ${data.tahun}:</strong><br>
-                    - Total cuti terpakai: ${data.total_terpakai} hari<br>
-                    - Sisa kuota: ${data.sisa_kuota} hari<br>
-                    - Pengajuan ini: ${jumlahHari.value || 0} hari
-                `;
-                
-                if (data.sisa_kuota < parseInt(jumlahHari.value || 0)) {
-                    alertKuota.className = 'alert alert-danger';
-                    infoKuota.innerHTML += '<br><strong class="text-danger">⚠️ Kuota tidak mencukupi!</strong>';
-                } else {
-                    alertKuota.className = 'alert alert-info';
-                }
-                
-                alertKuota.style.display = 'block';
-            })
-            .catch(error => {
-                console.error('Error:', error);
-            });
-    }
-
-    // ===== EVENT LISTENERS =====
-    tanggalMulai.addEventListener('change', hitungJumlahHari);
-    tanggalSelesai.addEventListener('change', hitungJumlahHari);
     
-    alasanCuti.addEventListener('change', function() {
-        if (this.value === 'CUTI TAHUNAN' && nipInput.value && tanggalMulai.value) {
-            cekKuota();
-        } else {
-            alertKuota.style.display = 'none';
-        }
-    });
-
-    // Validasi tanggal minimum
-    const today = new Date().toISOString().split('T')[0];
-    tanggalMulai.setAttribute('min', today);
-    
-    tanggalMulai.addEventListener('change', function() {
-        tanggalSelesai.setAttribute('min', this.value);
-    });
-
-    // ===== SUBMIT FORM DENGAN KONFIRMASI =====
-    document.getElementById('btnSimpan').addEventListener('click', function() {
-        // Validasi form
-        if (!document.querySelector('form').checkValidity()) {
-            document.querySelector('form').reportValidity();
-            return;
-        }
-
-        // Cek apakah kuota mencukupi untuk cuti tahunan
-        if (alasanCuti.value === 'CUTI TAHUNAN' && alertKuota.style.display === 'block') {
-            if (alertKuota.className.includes('alert-danger')) {
-                alert('Kuota cuti tahunan tidak mencukupi! Silakan kurangi jumlah hari atau pilih jenis cuti lain.');
+        // ===== FUNGSI UNTUK MENAMPILKAN KUOTA CUTI BERDASARKAN JENIS =====
+        function tampilkanKuotaCuti(nip, jenisCuti) {
+            if (!nip || !jenisCuti) {
+                alertKuota.style.display = 'none';
                 return;
             }
+    
+            const config = kuotaCutiConfig[jenisCuti];
+            if (!config) {
+                alertKuota.style.display = 'none';
+                return;
+            }
+    
+            // Untuk cuti tahunan, ambil data dari server
+            if (jenisCuti === 'CUTI TAHUNAN') {
+                const tahunSekarang = new Date().getFullYear();
+                
+                fetch(`{{ url('user/cuti/sisa-kuota') }}?nip=${nip}&tahun=${tahunSekarang}&jenis=CUTI TAHUNAN`)
+                    .then(response => response.json())
+                    .then(data => {
+                        tampilkanDetailKuota(config, data, jenisCuti);
+                    })
+                    .catch(error => {
+                        console.error('Error fetching kuota:', error);
+                        tampilkanKuotaStatis(config, jenisCuti);
+                    });
+            } else {
+                // Untuk jenis cuti lainnya, bisa juga ambil dari server atau tampilkan statis
+                // Sementara tampilkan statis dulu, nanti bisa disesuaikan dengan database
+                tampilkanKuotaStatis(config, jenisCuti);
+            }
         }
-
-        const konfirmasi = confirm(`Apakah Anda yakin data yang diisi sudah benar?\n\nDetail pengajuan:\n- NIP: ${nipInput.value}\n- Nama: ${namaPegawaiInput.value}\n- Tanggal: ${tanggalMulai.value} s/d ${tanggalSelesai.value}\n- Jumlah hari: ${jumlahHari.value} hari\n- Jenis cuti: ${alasanCuti.value}\n\nSilakan periksa kembali sebelum melanjutkan.`);
+    
+        // ===== FUNGSI UNTUK MENAMPILKAN DETAIL KUOTA DARI SERVER =====
+        function tampilkanDetailKuota(config, data, jenisCuti) {
+            const pengajuanHari = parseInt(jumlahHari.value || 0);
+            
+            infoKuota.innerHTML = `
+                <strong>Kuota ${config.title} ${data.tahun || ''}:</strong><br>
+                <div style="font-size: 1.1em; margin-top: 8px;">
+                    <strong>Sisa Kuota: ${data.sisa_kuota || config.kuota} ${config.satuan.includes('hari') ? 'hari' : config.satuan}</strong> 
+                    ${data.tahun ? `(dari ${config.kuota} hari)` : ''}
+                </div>
+                ${data.total_terpakai ? `<small class="text-muted">Total terpakai: ${data.total_terpakai} hari</small>` : ''}
+                <div style="margin-top: 8px;">
+                    <small class="text-info">${config.keterangan}</small>
+                </div>
+                ${pengajuanHari > 0 ? `<div style="margin-top: 8px; padding: 8px; background: #f8f9fa; border-radius: 4px;">
+                    <strong>Pengajuan ini: ${pengajuanHari} hari</strong><br>
+                    <small>Sisa setelah pengajuan: ${(data.sisa_kuota || config.kuota) - pengajuanHari} hari</small>
+                </div>` : ''}
+            `;
+            
+            // Tentukan warna alert berdasarkan sisa kuota
+            const sisaKuota = data.sisa_kuota || config.kuota;
+            if (sisaKuota < pengajuanHari) {
+                alertKuota.className = 'alert alert-danger';
+                infoKuota.innerHTML += '<br><strong class="text-danger">⚠️ Kuota tidak mencukupi!</strong>';
+            } else if (sisaKuota - pengajuanHari <= 2 && jenisCuti === 'CUTI TAHUNAN') {
+                alertKuota.className = 'alert alert-warning';
+            } else {
+                alertKuota.className = `alert alert-${config.warna}`;
+            }
+            
+            alertKuota.style.display = 'block';
+        }
+    
+        // ===== FUNGSI UNTUK MENAMPILKAN KUOTA STATIS =====
+        function tampilkanKuotaStatis(config, jenisCuti) {
+            const pengajuanHari = parseInt(jumlahHari.value || 0);
+            
+            infoKuota.innerHTML = `
+                <strong>Kuota ${config.title}:</strong><br>
+                <div style="font-size: 1.1em; margin-top: 8px;">
+                    <strong>Kuota Maksimal: ${config.kuota} ${config.satuan}</strong>
+                </div>
+                <div style="margin-top: 8px;">
+                    <small class="text-info">${config.keterangan}</small>
+                </div>
+                ${pengajuanHari > 0 ? `<div style="margin-top: 8px; padding: 8px; background: #f8f9fa; border-radius: 4px;">
+                    <strong>Pengajuan ini: ${pengajuanHari} hari</strong>
+                    ${pengajuanHari > config.kuota ? '<br><small class="text-danger">⚠️ Melebihi kuota maksimal!</small>' : ''}
+                </div>` : ''}
+            `;
+            
+            // Tentukan warna alert
+            if (pengajuanHari > config.kuota) {
+                alertKuota.className = 'alert alert-danger';
+            } else {
+                alertKuota.className = `alert alert-${config.warna}`;
+            }
+            
+            alertKuota.style.display = 'block';
+        }
+    
+        // ===== BACKUP: BLUR EVENT UNTUK MEMASTIKAN =====
+        nipInput.addEventListener('blur', function() {
+            const nip = this.value.trim();
+            
+            if (nip.length === 18 && !namaPegawaiInput.value) {
+                nipInput.dispatchEvent(new Event('input'));
+            }
+        });
+    
+        // ===== FUNGSI UNTUK MENGHITUNG JUMLAH HARI =====
+        function hitungJumlahHari() {
+            if (tanggalMulai.value && tanggalSelesai.value) {
+                const mulai = new Date(tanggalMulai.value);
+                const selesai = new Date(tanggalSelesai.value);
+                
+                if (selesai >= mulai) {
+                    const diffTime = Math.abs(selesai - mulai);
+                    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)) + 1;
+                    jumlahHari.value = diffDays;
+                    
+                    // Update tampilan kuota dengan pengajuan ini
+                    if (nipInput.value && alasanCuti.value) {
+                        tampilkanKuotaCuti(nipInput.value, alasanCuti.value);
+                    }
+                } else {
+                    jumlahHari.value = '';
+                    alert('Tanggal selesai tidak boleh lebih awal dari tanggal mulai!');
+                }
+            }
+        }
+    
+        // ===== EVENT LISTENERS =====
+        tanggalMulai.addEventListener('change', hitungJumlahHari);
+        tanggalSelesai.addEventListener('change', hitungJumlahHari);
         
-        if (konfirmasi) {
-            this.closest('form').submit();
+        // Event listener untuk perubahan jenis cuti
+        alasanCuti.addEventListener('change', function() {
+            const jenisCuti = this.value;
+            
+            if (jenisCuti && nipInput.value) {
+                tampilkanKuotaCuti(nipInput.value, jenisCuti);
+            } else if (jenisCuti) {
+                // Jika belum ada NIP, tampilkan info kuota statis
+                const config = kuotaCutiConfig[jenisCuti];
+                if (config) {
+                    tampilkanKuotaStatis(config, jenisCuti);
+                }
+            } else {
+                // Jika tidak ada jenis cuti yang dipilih
+                if (nipInput.value) {
+                    tampilkanInfoUmumCuti();
+                } else {
+                    alertKuota.style.display = 'none';
+                }
+            }
+        });
+    
+        // Validasi tanggal minimum
+        const today = new Date().toISOString().split('T')[0];
+        tanggalMulai.setAttribute('min', today);
+        
+        tanggalMulai.addEventListener('change', function() {
+            tanggalSelesai.setAttribute('min', this.value);
+        });
+    
+        // ===== SUBMIT FORM DENGAN KONFIRMASI =====
+        document.getElementById('btnSimpan').addEventListener('click', function() {
+            // Validasi form
+            if (!document.querySelector('form').checkValidity()) {
+                document.querySelector('form').reportValidity();
+                return;
+            }
+    
+            // Validasi khusus berdasarkan jenis cuti
+            const jenisCuti = alasanCuti.value;
+            const pengajuanHari = parseInt(jumlahHari.value || 0);
+            
+            // Cek kuota untuk setiap jenis cuti
+            if (jenisCuti && kuotaCutiConfig[jenisCuti]) {
+                const config = kuotaCutiConfig[jenisCuti];
+                
+                // Untuk cuti tahunan, cek dengan data dari server
+                if (jenisCuti === 'CUTI TAHUNAN' && alertKuota.style.display === 'block') {
+                    if (alertKuota.className.includes('alert-danger')) {
+                        alert('Kuota cuti tahunan tidak mencukupi! Silakan kurangi jumlah hari.');
+                        return;
+                    }
+                }
+                
+                // Untuk jenis cuti lainnya, cek dengan kuota maksimal
+                if (jenisCuti !== 'CUTI TAHUNAN' && pengajuanHari > config.kuota) {
+                    alert(`Pengajuan melebihi kuota maksimal ${config.title} (${config.kuota} ${config.satuan})!`);
+                    return;
+                }
+                
+                // Validasi khusus untuk cuti bersalin
+                if (jenisCuti === 'CUTI BERSALIN') {
+                    const konfirmasiGender = confirm('Cuti bersalin hanya dapat diajukan oleh pegawai perempuan. Apakah Anda yakin?');
+                    if (!konfirmasiGender) {
+                        return;
+                    }
+                }
+                
+                // Validasi khusus untuk CLTN
+                if (jenisCuti === 'CUTI DI LUAR TANGGUNGAN NEGARA (CLTN)') {
+                    const konfirmasiCLTN = confirm('Cuti CLTN adalah cuti tanpa gaji dan memerlukan persetujuan khusus dari atasan. Apakah Anda yakin?');
+                    if (!konfirmasiCLTN) {
+                        return;
+                    }
+                }
+            }
+    
+            // Konfirmasi akhir
+            const konfirmasi = confirm(`Apakah Anda yakin data yang diisi sudah benar?\n\nDetail pengajuan:\n- NIP: ${nipInput.value}\n- Nama: ${namaPegawaiInput.value}\n- Tanggal: ${tanggalMulai.value} s/d ${tanggalSelesai.value}\n- Jumlah hari: ${jumlahHari.value} hari\n- Jenis cuti: ${jenisCuti}\n\nSilakan periksa kembali sebelum melanjutkan.`);
+            
+            if (konfirmasi) {
+                this.closest('form').submit();
+            }
+        });
+    
+        // ===== INISIALISASI AWAL =====
+        // Jika sudah ada jenis cuti yang dipilih saat load halaman
+        if (alasanCuti.value) {
+            if (nipInput.value) {
+                tampilkanKuotaCuti(nipInput.value, alasanCuti.value);
+            } else {
+                const config = kuotaCutiConfig[alasanCuti.value];
+                if (config) {
+                    tampilkanKuotaStatis(config, alasanCuti.value);
+                }
+            }
         }
     });
-}); 
-    </script>
+        </script>

@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\user;
 
 use App\Http\Controllers\Controller;
+use App\Models\Cuti;
 use App\Models\Pajak;
 use App\Models\Sintari_pegawai;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -24,6 +26,7 @@ class PajakController extends Controller
         } else {
             // Jika tidak ada pencarian, kirim collection kosong
             $pajak = collect();
+            $pajak = Sintari_pegawai::whereNotNull('file')->get();
             // $pajak = Sintari_pegawai::get();
         }
         
@@ -195,5 +198,13 @@ class PajakController extends Controller
     {
         $pegawai = Sintari_pegawai::findOrFail($id);
         return view('user.pajak.detail', compact('pegawai',));
+    }
+
+    public function exportPDF($id)
+    {
+        $pegawai = Sintari_pegawai::findOrFail($id);
+
+        $pdf = Pdf::loadView('user.pajak.pdf', compact('pegawai'))->setPaper('A4', 'portrait');
+        return $pdf->stream('data-pegawai-' . $pegawai->nama . '.pdf');
     }
 }

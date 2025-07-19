@@ -8,7 +8,7 @@
                     <div class="border p-4 rounded">
                         <div class="card-title d-flex align-items-center">
                             <div><i class="bx bxs-user me-1 font-22 text-info"></i></div>
-                            <h5 class="mb-0 text-info">Informasi Pegawai</h5>
+                            <h5 class="mb-0 text-info">Informasi pajak Pegawai</h5>
                         </div>
                         <hr>
 
@@ -54,7 +54,8 @@
                         
 
                         <div class="d-flex justify-content-end">
-                            <button onclick="window.print()" class="btn btn-info me-2">Print</button>
+                            <a href="{{ route('pajak.export.pdf', $pegawai->id) }}" class="btn btn-danger">Download PDF</a>
+
                             <a href="{{ url('admin/cuti') }}" class="btn btn-secondary">Kembali</a>
                         </div>
                         

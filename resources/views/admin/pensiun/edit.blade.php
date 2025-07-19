@@ -1,7 +1,7 @@
 <x-admin>
     <div class="row">
         <div class="col-xl-9 mx-auto">
-            <h6 class="mb-0 text-uppercase">Tambah update</h6>
+            <h6 class="mb-0 text-uppercase">Pensiun Pegawai</h6>
             <form action="{{ url('admin/pensiun/submit', $pensiun->id) }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <hr/>
@@ -42,6 +42,18 @@
                                     <input type="text" name="opd" value="{{ $pensiun->opd }}"  class="form-control" id="opdlama" placeholder="Masukkan Opd Lama" readonly>
                                 </div>
                             </div>
+
+                               <div class="row mb-3">
+                                <label for="pimpinanOpd" class="col-sm-3 col-form-label">Status Pensiun</label>
+                                <div class="col-sm-9">
+                                    <select name="status_pensiun" value="{{ $pensiun->status_pensiun }}"  class="form-control" id="statuspensiun" required>
+                                        <option value="">-- Pilih --</option>
+                                        <option value="pensiun">Pensiun Dini</option>
+                                        <option value="pensiun">Pensiun meninggal Dunia</option>
+                                        <option value="pensiun">Pensiun Karena Cacat</option>
+                                    </select>
+                                </div>
+                            </div> 
                         
                             <div class="row mb-3">
                                 <label for="tanggalSk" class="col-sm-3 col-form-label">Tmt Pensiun</label>
